@@ -1,9 +1,12 @@
+import Footer from '@/components/footer'
+import Header from '@/components/header'
+
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <header>Header</header>
+      <Header />
       {children}
-      <footer>Footer</footer>
+      <Footer />
     </>
   )
 }
