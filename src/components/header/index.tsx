@@ -1,13 +1,13 @@
 'use client'
 import SearchInput from '@/components/search-input'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import { Search, UserRound } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 import MenuDesktop from './menu-desktop'
 import MenuMobile from './menu-mobile'
-import { useEffect, useRef, useState } from 'react'
-import { cn } from '@/lib/utils'
 
 const Header = () => {
   const headerRef = useRef<HTMLElement>(null)
@@ -74,7 +74,7 @@ const Header = () => {
 
         <div className='flex items-center gap-7'>
           {/* Download app */}
-          <div className='hidden md:flex items-center gap-3'>
+          <button className='hidden md:flex items-center gap-3'>
             <div className='text-primaryCustom'>
               <svg
                 width={24}
@@ -103,7 +103,7 @@ const Header = () => {
               <p className='mb-1 text-xs'>Tải ứng dụng</p>
               <p className='text-sm font-bold'>RoPhim</p>
             </div>
-          </div>
+          </button>
 
           {/* CTA */}
           <Button
