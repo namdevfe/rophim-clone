@@ -9,7 +9,8 @@ export const ROUTES = {
     LICH_CHIEU: '/lich-chieu',
     PHIM: (slug: string) => `/phim/${slug}`,
     QUOC_GIA: (slug: string) => `/quoc-gia/${slug}`,
-    XEM_PHIM: (slug: string) => `/xem-phim/${slug}`
+    XEM_PHIM: (slug: string) => `/xem-phim/${slug}`,
+    THE_LOAI: (slug: string) => `/the-loai/${slug}`
   },
   MARKETING: {
     HOME: '/'

@@ -31,7 +31,7 @@
 }
 
 .sliders-section .bottom-slider-wrap {
-  @apply absolute right-[15px] bottom-[158px] z-[1] h-10 w-fit;
+  @apply absolute right-[15px] bottom-[158px] z-[1] h-[26px] md:h-10 w-fit;
 }
 
 .sliders-section .bottom-slider-wrap .swiper-wrapper {
@@ -39,11 +39,16 @@
 }
 
 .sliders-section .bottom-slider-wrap .swiper-slide {
-  @apply !w-[66px] h-full cursor-pointer;
+  @apply !w-[26px] md:!w-[66px] h-full cursor-pointer rounded-full md:rounded-none overflow-hidden border-[3px] border-solid border-transparent transition-colors duration-300;
+}
+
+/* Hover bottom slider item */
+.sliders-section .bottom-slider-wrap .swiper-slide:hover {
+  @apply border-white;
 }
 
 .sliders-section .bottom-slider-wrap .swiper-slide-thumb-active {
-  @apply border-[3px] border-solid border-white;
+  @apply border-white;
 }
 
 .sliders-section .swiper-slide img {

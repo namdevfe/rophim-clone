@@ -3,7 +3,7 @@ import { Toaster } from '@/components/ui/toaster'
 import '@/app/globals.css'
 
 export const metadata: Metadata = {
-  title: 'RoPhim - Phim hay cả rổ - Xem phim',
+  title: 'RoPhim - Phim hay cả rổ - Xem phim Mới HD Online Vietsub',
   description: 'Website này được xây dựng nhầm mục đích học tập'
 }
 
