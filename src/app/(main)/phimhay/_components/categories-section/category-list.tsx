@@ -24,7 +24,6 @@ const CategoryList = ({ categories = [] }: CategoryListProps) => {
 
   return (
     <div className='no-scrollbar flex -mx-[15px] px-[15px] xs:px-0 xs:mx-0 overflow-x-scroll xs:overflow-x-visible xs:grid xs:grid-cols-3 min-[769px]:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 min-[1441px]:grid-cols-7 gap-4 items-stretch'>
-      {/* Render list first */}
       {categoryListFirst.map((category: any) => {
         return (
           <CategoryCard
