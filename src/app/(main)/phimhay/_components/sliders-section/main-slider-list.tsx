@@ -94,7 +94,7 @@ const MainSliderList = ({ movies = [], thumbsSwiper }: MainSliderListProps) => {
               {/* Tags */}
               <div className='flex flex-wrap items-center gap-[10px] mb-3'>
                 {/* Tag IMDb */}
-                {imdb && (
+                {imdb.id && (
                   <Badge
                     variant='outline'
                     className='h-[26px] rounded-md border-primaryCustom bg-transparent text-white font-medium text-xs'

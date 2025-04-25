@@ -6,7 +6,11 @@ const getMovieList = async () => {
       'https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1'
     )
 
-    return await response.json()
+    return await new Promise<any>((resolve) => {
+      setTimeout(() => {
+        resolve(response.json())
+      }, 2000)
+    })
   } catch (error) {
     console.log(error)
   }
