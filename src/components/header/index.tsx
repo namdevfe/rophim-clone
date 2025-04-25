@@ -40,7 +40,7 @@ const Header = () => {
 
   return (
     <header
-      className='fixed top-0 left-0 w-full h-[74px] py-3 bg-transparent transition-colors duration-300'
+      className='fixed top-0 left-0 z-[100] w-full h-[74px] py-3 bg-transparent transition-colors duration-300'
       ref={headerRef}
     >
       <div className='container-fluid h-full flex items-center'>

@@ -1,0 +1,54 @@
+.sliders-section .swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.sliders-section .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sliders-section .swiper {
+  width: 100%;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sliders-section .swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+
+.sliders-section .top-slider-wrap {
+  @apply w-full h-full object-cover;
+}
+
+.sliders-section .top-slider-wrap .swiper-slide {
+  @apply cursor-grab;
+}
+
+.sliders-section .bottom-slider-wrap {
+  @apply absolute right-[15px] bottom-[158px] z-[1] h-10 w-fit;
+}
+
+.sliders-section .bottom-slider-wrap .swiper-wrapper {
+  @apply justify-end;
+}
+
+.sliders-section .bottom-slider-wrap .swiper-slide {
+  @apply !w-[66px] h-full cursor-pointer;
+}
+
+.sliders-section .bottom-slider-wrap .swiper-slide-thumb-active {
+  @apply border-[3px] border-solid border-white;
+}
+
+.sliders-section .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

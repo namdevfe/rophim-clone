@@ -67,7 +67,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-[#191B24] text-foreground;
+    @apply bg-[#191B24] text-foreground text-sm font-normal text-white;
   }
 }
 
@@ -79,5 +79,17 @@
     margin-right: auto;
     padding-left: 15px;
     padding-right: 15px;
+  }
+
+  .gradient-btn {
+    background: linear-gradient(
+      39deg,
+      rgba(254, 207, 89, 1),
+      rgba(255, 241, 204, 1)
+    );
+  }
+
+  .gradient-btn:hover {
+    box-shadow: 0 5px 10px 10px rgba(255, 218, 125, 0.15);
   }
 }

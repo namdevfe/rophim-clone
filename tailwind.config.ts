@@ -25,6 +25,9 @@ const config: Config = {
       }
     },
     extend: {
+      backgroundImage: {
+        gradientTagCustom: 'linear-gradient(220deg, var(--primary-color), #FFF)'
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',

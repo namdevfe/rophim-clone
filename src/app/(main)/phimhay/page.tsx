@@ -1,5 +1,11 @@
+import SlidersSection from './_components/sliders-section'
+
 const PhimHayPage = () => {
-  return <div className='h-[2000px]'>PhimHayPage</div>
+  return (
+    <>
+      <SlidersSection />
+    </>
+  )
 }
 
 export default PhimHayPage
