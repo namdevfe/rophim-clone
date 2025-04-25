@@ -1,5 +1,5 @@
-const TheLoaiPage = () => {
-  return <div>TheLoaiPage</div>
+const CagoriesPage = () => {
+  return <div>CagoriesPage</div>
 }
 
-export default TheLoaiPage
+export default CagoriesPage

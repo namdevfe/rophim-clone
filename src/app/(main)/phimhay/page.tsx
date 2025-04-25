@@ -1,3 +1,4 @@
+import CategoriesSection from './_components/categories-section'
 import SlidersSection from './_components/sliders-section'
 
 const getMovieList = async () => {
@@ -6,23 +7,33 @@ const getMovieList = async () => {
       'https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1'
     )
 
-    return await new Promise<any>((resolve) => {
-      setTimeout(() => {
-        resolve(response.json())
-      }, 2000)
-    })
+    return await response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const getCategoryList = async () => {
+  try {
+    const response = await fetch('https://phimapi.com/the-loai')
+    return await response.json()
   } catch (error) {
     console.log(error)
   }
 }
 
 const PhimHayPage = async () => {
-  const moviesResponse = await getMovieList()
-  const movies = moviesResponse.items?.splice(0, 6)
+  /** Movies */
+  const moviesData = await getMovieList()
+  const movies = moviesData.items?.splice(0, 6)
+
+  /** Categories */
+  const categoriesData = await getCategoryList()
 
   return (
     <>
       <SlidersSection movies={movies || []} />
+      <CategoriesSection categories={categoriesData || []} />
     </>
   )
 }

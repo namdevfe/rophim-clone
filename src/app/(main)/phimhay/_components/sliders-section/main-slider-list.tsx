@@ -75,7 +75,13 @@ const MainSliderList = ({ movies = [], thumbsSwiper }: MainSliderListProps) => {
             key={_id}
             className='before:content-[""] before:absolute before:left-0 before:top-0 before:z-10 before:block before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)]'
           >
-            <Image src={thumb_url} alt={slug} fill quality={100} />
+            <Image
+              src={thumb_url}
+              alt={slug}
+              fill
+              quality={100}
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            />
             <div className='absolute top-2/4 left-[15px] right-[15px] z-[22] -translate-y-2/4 max-w-[540px]'>
               {/* Title */}
               <h2
@@ -151,7 +157,7 @@ const MainSliderList = ({ movies = [], thumbsSwiper }: MainSliderListProps) => {
                   return (
                     <Link
                       key={id}
-                      href={ROUTES.MAIN.THE_LOAI(slug)}
+                      href={ROUTES.MAIN.THE_LOAI.DETAIL(slug)}
                       className='h-[26px] inline-flex items-center justify-center px-[6px] rounded-sm capitalize text-xs bg-[#ffffff10] transition-colors duration-300 hover:text-primaryCustom'
                     >
                       {name}

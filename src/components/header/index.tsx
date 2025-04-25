@@ -61,6 +61,9 @@ const Header = () => {
                 height={40}
                 priority
               />
+              <h1 className='hidden'>
+                RoPhim - Phim hay cả rổ - Xem Phim Mới HD Online Vietsub
+              </h1>
             </Link>
           </div>
           <SearchInput

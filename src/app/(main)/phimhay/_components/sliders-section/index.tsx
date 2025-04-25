@@ -1,10 +1,10 @@
 'use client'
 import { Movie } from '@/types/movie'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { useState } from 'react'
 import type { Swiper as SwiperType } from 'swiper'
-import { FreeMode, Thumbs } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
+// import { FreeMode, Thumbs } from 'swiper/modules'
+// import { Swiper, SwiperSlide } from 'swiper/react'
 import MainSliderList from './main-slider-list'
 import SubSliderList from './sub-slider-list'
 
@@ -22,15 +22,15 @@ interface SlidersSectionProps {
 const SlidersSection = ({ movies = [] }: SlidersSectionProps) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null)
 
-  /** List bottom sliders */
-  const bottomSliderImages = movies.map((movie) => {
-    return {
-      _id: movie._id,
-      name: movie.name,
-      slug: movie.slug,
-      posterURL: movie.poster_url
-    }
-  })
+  // /** List bottom sliders */
+  // const bottomSliderImages = movies.map((movie) => {
+  //   return {
+  //     _id: movie._id,
+  //     name: movie.name,
+  //     slug: movie.slug,
+  //     posterURL: movie.poster_url
+  //   }
+  // })
 
   const handleSwiperChange = (swiper: SwiperType) => {
     setThumbsSwiper(swiper)
@@ -40,7 +40,7 @@ const SlidersSection = ({ movies = [] }: SlidersSectionProps) => {
     <section className='sliders-section relative h-screen max-h-[1080px]'>
       <MainSliderList movies={movies} thumbsSwiper={thumbsSwiper} />
 
-      <Swiper
+      {/* <Swiper
         onSwiper={handleSwiperChange}
         spaceBetween={5}
         slidesPerView={6}
@@ -64,7 +64,7 @@ const SlidersSection = ({ movies = [] }: SlidersSectionProps) => {
             </SwiperSlide>
           )
         })}
-      </Swiper>
+      </Swiper> */}
 
       <SubSliderList movies={movies} onChange={handleSwiperChange} />
     </section>

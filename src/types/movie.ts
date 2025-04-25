@@ -1,3 +1,5 @@
+import { Category } from '@/types/category'
+
 export interface Movie {
   _id: string
   name: string
@@ -27,12 +29,6 @@ export interface Movie {
   }
   category: Category[]
   country: Country[]
-}
-
-export interface Category {
-  id: string
-  name: string
-  slug: string
 }
 
 export interface Country {

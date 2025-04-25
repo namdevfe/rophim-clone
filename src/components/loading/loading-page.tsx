@@ -15,6 +15,7 @@ const LoadingPage = () => {
                 src='/img/vn-flag-full.gif'
                 alt='icon-vn-flag'
                 className='left-0 w-full h-full object-cover'
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
               />
             </div>
             {/* Tank */}
@@ -24,6 +25,7 @@ const LoadingPage = () => {
                 alt='icon-tank'
                 fill
                 className='w-full h-full object-cover'
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
               />
 
               {/* Wheels */}
