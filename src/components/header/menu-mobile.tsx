@@ -7,26 +7,33 @@ import {
 } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 import { ChevronDown, UserRound } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MENU_LIST } from '@/constants/menu'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 const MenuMobile = () => {
   const pathname = usePathname()
+  const subMenuTriggerRef = useRef<HTMLLIElement | null>(null)
   const [isShowMenuMobile, setIsShowMenuMobile] = useState<boolean>(false)
   const [isShowSubMenu, setIsShowSubMenu] = useState<boolean>(false)
 
+  /** Handle show/hide menu mobile */
   const handleToggleShowMenuMobile = () => {
     setIsShowMenuMobile((prev) => !prev)
   }
 
+  const handleCloseMenuMobile = () => {
+    setIsShowMenuMobile(false)
+  }
+
+  /** Handle show/hide subMenu on mobile */
   const handleToggleSubMenu = () => {
     setIsShowSubMenu((prev) => !prev)
   }
 
-  const handleCloseMenuMobile = () => {
-    setIsShowMenuMobile(false)
+  const handleCloseSubMenu = () => {
+    setIsShowSubMenu(false)
   }
 
   /** Handle close menu mobile when resize with break-point >= 992px */
@@ -47,6 +54,31 @@ const MenuMobile = () => {
       window.removeEventListener('resize', handleResize)
     }
   }, [isShowMenuMobile])
+
+  /** Handle close menu mobile each path change */
+  useEffect(() => {
+    handleCloseMenuMobile()
+  }, [pathname])
+
+  /** Handle close sub menu when click outside */
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        subMenuTriggerRef.current &&
+        !subMenuTriggerRef.current.contains(e.target as Node)
+      ) {
+        e.stopPropagation()
+        e.preventDefault()
+        handleCloseSubMenu()
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
 
   return (
     <Popover
@@ -126,7 +158,7 @@ const MenuMobile = () => {
                 className='flex'
               >
                 <Link
-                  href={href}
+                  href={typeof href === 'function' ? href('') : href}
                   className={cn(
                     'px-[10px] text-white text-xs text-nowrap leading-9 font-medium transition-colors duration-300 hover:text-primaryCustom',
                     {
@@ -140,6 +172,7 @@ const MenuMobile = () => {
             ) : (
               <li
                 key={menuItem.title || new Date().getTime() + parentIndex}
+                ref={subMenuTriggerRef}
                 className='relative flex items-center gap-1 px-[10px] text-white text-xs text-nowrap leading-9 font-medium cursor-pointer'
                 onClick={() => handleToggleSubMenu()}
               >
@@ -158,7 +191,11 @@ const MenuMobile = () => {
                         >
                           {subMenuItem.href && (
                             <Link
-                              href={subMenuItem.href}
+                              href={
+                                typeof subMenuItem.href === 'function'
+                                  ? subMenuItem.href('')
+                                  : subMenuItem.href
+                              }
                               className='inline-block w-full py-1 px-5 text-xs font-medium capitalize transition-colors duration-300 hover:text-primaryCustom hover:bg-[#ffffff05]'
                             >
                               {subMenuItem.title}

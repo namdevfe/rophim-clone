@@ -1,85 +1,87 @@
+import { ROUTES } from '@/constants/route'
+
 export interface MenuItem {
   title: string
-  href?: string
+  href?: ((slug: string) => string) | string | undefined
   items?: MenuItem[]
 }
 
 export const MENU_LIST: MenuItem[] = [
   {
     title: 'Chủ đề',
-    href: '/chu-de'
+    href: ROUTES.MAIN.CHU_DE
   },
   {
     title: 'Duyệt tìm',
-    href: '/duyet-tim'
+    href: ROUTES.MAIN.DUYET_TIM
   },
   {
     title: 'Phim lẻ',
-    href: '/phim-le'
+    href: ROUTES.MAIN.PHIM_LE
   },
   {
     title: 'Phim bộ',
-    href: '/phim-bo'
+    href: ROUTES.MAIN.PHIM_BO
   },
   {
     title: 'Quốc gia',
     items: [
       {
         title: 'Anh',
-        href: '/quocgia/anh'
+        href: (slug: string) => ROUTES.MAIN.QUOC_GIA(slug)
       },
       {
         title: 'Canada',
-        href: '/quocgia/canada'
+        href: (slug: string) => ROUTES.MAIN.QUOC_GIA(slug)
       },
       {
         title: 'Hàn Quốc',
-        href: '/quocgia/hanquoc'
+        href: (slug: string) => ROUTES.MAIN.QUOC_GIA(slug)
       },
       {
         title: 'Hồng Kông',
-        href: '/quocgia/hongkong'
+        href: (slug: string) => ROUTES.MAIN.QUOC_GIA(slug)
       },
       {
         title: 'Mỹ',
-        href: '/quocgia/my'
+        href: (slug: string) => ROUTES.MAIN.QUOC_GIA(slug)
       },
       {
         title: 'Nhật Bản',
-        href: '/quocgia/nhatban'
+        href: (slug: string) => ROUTES.MAIN.QUOC_GIA(slug)
       },
       {
         title: 'Pháp',
-        href: '/quocgia/phap'
+        href: (slug: string) => ROUTES.MAIN.QUOC_GIA(slug)
       },
       {
         title: 'Thái Lan',
-        href: '/quocgia/thailan'
+        href: (slug: string) => ROUTES.MAIN.QUOC_GIA(slug)
       },
       {
         title: 'Trung Quốc',
-        href: '/quocgia/trungquoc'
+        href: (slug: string) => ROUTES.MAIN.QUOC_GIA(slug)
       },
       {
         title: 'Úc',
-        href: '/quocgia/uc'
+        href: (slug: string) => ROUTES.MAIN.QUOC_GIA(slug)
       },
       {
         title: 'Đài Loan',
-        href: '/quocgia/dailoan'
+        href: (slug: string) => ROUTES.MAIN.QUOC_GIA(slug)
       },
       {
         title: 'Đức',
-        href: '/quocgia/duc'
+        href: (slug: string) => ROUTES.MAIN.QUOC_GIA(slug)
       }
     ]
   },
   {
     title: 'Diễn viên',
-    href: '/dien-vien'
+    href: ROUTES.MAIN.DIEN_VIEN
   },
   {
     title: 'Lịch chiếu',
-    href: '/lich-chieu'
+    href: ROUTES.MAIN.LICH_CHIEU
   }
 ]
