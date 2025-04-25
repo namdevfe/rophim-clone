@@ -11,12 +11,12 @@ import type { Swiper as SwiperType } from 'swiper'
 import { EffectFade, Thumbs } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-interface SliderListProps {
+interface MainSliderListProps {
   movies: Movie[]
   thumbsSwiper: SwiperType | null
 }
 
-const SliderList = ({ movies = [], thumbsSwiper }: SliderListProps) => {
+const MainSliderList = ({ movies = [], thumbsSwiper }: MainSliderListProps) => {
   const moviesModified = movies.map((movie) => {
     const {
       _id,
@@ -203,4 +203,4 @@ const SliderList = ({ movies = [], thumbsSwiper }: SliderListProps) => {
   )
 }
 
-export default SliderList
+export default MainSliderList

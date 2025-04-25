@@ -5,7 +5,8 @@ import { useState } from 'react'
 import type { Swiper as SwiperType } from 'swiper'
 import { FreeMode, Thumbs } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SliderList from './slider-list'
+import MainSliderList from './main-slider-list'
+import SubSliderList from './sub-slider-list'
 
 /** Import css */
 import 'swiper/css'
@@ -37,7 +38,8 @@ const SlidersSection = ({ movies = [] }: SlidersSectionProps) => {
 
   return (
     <section className='sliders-section relative h-screen max-h-[1080px]'>
-      <SliderList movies={movies} thumbsSwiper={thumbsSwiper} />
+      <MainSliderList movies={movies} thumbsSwiper={thumbsSwiper} />
+
       <Swiper
         onSwiper={handleSwiperChange}
         spaceBetween={5}
@@ -63,6 +65,8 @@ const SlidersSection = ({ movies = [] }: SlidersSectionProps) => {
           )
         })}
       </Swiper>
+
+      <SubSliderList movies={movies} onChange={handleSwiperChange} />
     </section>
   )
 }
