@@ -1,4 +1,5 @@
 'use client'
+import HistoryMovieSkeleton from '@/app/(main)/phimhay/_components/gpmn-section/history-movie-list/history-movie-skeleton'
 import { ROUTES } from '@/constants/route'
 import { Movie } from '@/types/movie'
 import { Play } from 'lucide-react'
@@ -37,6 +38,10 @@ const HistoryMovieCard = ({ slug }: HistoryMovieCardProps) => {
   useEffect(() => {
     getMovieDetails()
   }, [getMovieDetails])
+
+  if (isLoading) {
+    return <HistoryMovieSkeleton />
+  }
 
   if (!isLoading && Object.keys(data || {}).length > 0) {
     return (

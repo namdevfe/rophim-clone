@@ -28,7 +28,7 @@ const getCategoryList = async () => {
 const getHistoryMovies = async () => {
   try {
     const response = await fetch(
-      'https://phimapi.com/v1/api/the-loai/lich-su?page=1&limit=4&country=viet-nam'
+      'https://phimapi.com/v1/api/the-loai/lich-su?page=1&limit=6&country=viet-nam'
     )
 
     return (await response.json()) as ApiResponse
