@@ -12,16 +12,16 @@ const Hero = () => {
           alt='hero-image'
           width={300}
           height={1132}
-          className='relative z-10 w-[200px] xs:w-[300px]'
+          className='relative z-10 w-[200px] xs:w-[300px] h-auto'
         />
 
         {/* VN flag */}
         <Image
+          className='absolute top-0 left-0 z-[8] -rotate-[23deg] translate-x-8 -translate-y-7 w-[150px] xs:w-40 h-auto'
           src='/img/vn-flag-full.gif'
           alt='vn-flag'
           width={160}
           height={200}
-          className='absolute top-0 left-0 z-[8] -rotate-[23deg] translate-x-8 -translate-y-7 w-[150px] xs:w-40'
         />
       </div>
 

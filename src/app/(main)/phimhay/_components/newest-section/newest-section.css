@@ -1,0 +1,21 @@
+.newest-section {
+}
+
+/* CSS for prev/next buttons */
+.newest-section .newest-movie-list .swiper-button-prev,
+.newest-section .newest-movie-list .swiper-button-next {
+  width: var(--size-navigation-button);
+  height: var(--size-navigation-button);
+  @apply absolute top-[calc(50%-20px)] -translate-y-2/4 rounded-full bg-white text-black shadow-lg;
+}
+
+/* Custome z-index when disabled */
+.newest-section .newest-movie-list .swiper-button-prev.swiper-button-disabled,
+.newest-section .newest-movie-list .swiper-button-next.swiper-button-disabled {
+  @apply z-10 hidden cursor-not-allowed pointer-events-auto;
+}
+
+.newest-section .newest-movie-list .swiper-button-prev:after,
+.newest-section .newest-movie-list .swiper-button-next:after {
+  @apply text-sm font-medium;
+}

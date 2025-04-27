@@ -14,7 +14,7 @@ const LoadingPage = () => {
                 fill
                 src='/img/vn-flag-full.gif'
                 alt='icon-vn-flag'
-                className='left-0 w-full h-full object-cover'
+                className='left-0 w-full h-auto'
                 sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                 unoptimized
               />

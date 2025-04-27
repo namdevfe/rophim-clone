@@ -14,6 +14,7 @@ export interface Movie {
   quality: string
   lang: string
   year: number
+  episode_total: number
   tmdb: {
     type: string | null
     id: number | null
