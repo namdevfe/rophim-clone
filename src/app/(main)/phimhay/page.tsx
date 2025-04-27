@@ -4,7 +4,6 @@ import SlidersSection from './_components/sliders-section'
 import { ApiResponse } from '@/types/common'
 import movieService from '@/services/movie-service'
 import NewestSection from '@/app/(main)/phimhay/_components/newest-section'
-import { Movie } from '@/types/movie'
 
 /** Fetch data */
 const getMovieList = async () => {
@@ -55,7 +54,6 @@ const PhimHayPage = async () => {
   const moviesChineseResponse = await movieService.getMoviesByCountry(
     'trung-quoc'
   )
-  const domainCDNImage = moviesChineseResponse?.data?.APP_DOMAIN_CDN_IMAGE || ''
 
   /** Get movies korean */
   const moviesKoreanResponse = await movieService.getMoviesByCountry('han-quoc')
@@ -65,30 +63,9 @@ const PhimHayPage = async () => {
 
   /** Newest section props */
   const newestSectionProps = {
-    koreanMovies:
-      moviesKoreanResponse?.data?.items?.map((movie: Movie) => {
-        return {
-          ...movie,
-          thumb_url: `${domainCDNImage}/${movie.thumb_url}`,
-          poster_url: `${domainCDNImage}/${movie.poster_url}`
-        }
-      }) || [],
-    chineseMovies:
-      moviesChineseResponse?.data?.items?.map((movie: Movie) => {
-        return {
-          ...movie,
-          thumb_url: `${domainCDNImage}/${movie.thumb_url}`,
-          poster_url: `${domainCDNImage}/${movie.poster_url}`
-        }
-      }) || [],
-    usukMovies:
-      moviesUSUKResponse?.data?.items?.map((movie: Movie) => {
-        return {
-          ...movie,
-          thumb_url: `${domainCDNImage}/${movie.thumb_url}`,
-          poster_url: `${domainCDNImage}/${movie.poster_url}`
-        }
-      }) || []
+    koreanMovies: moviesKoreanResponse?.data?.items || [],
+    chineseMovies: moviesChineseResponse?.data?.items || [],
+    usukMovies: moviesUSUKResponse?.data?.items || []
   }
 
   return (

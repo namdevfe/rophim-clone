@@ -28,9 +28,23 @@ const getMovieBySlug = async (slug: string) => {
   }
 }
 
+/** Get movies by category */
+const getMovieByCategory = async (slug: string, queryParams?: QueryParams) => {
+  try {
+    const query = queryString.stringify(queryParams || {})
+    const response = await fetch(
+      `https://phimapi.com/v1/api/the-loai/${slug}?${query}`
+    )
+    return await response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const movieService = {
   getMovieBySlug,
-  getMoviesByCountry
+  getMoviesByCountry,
+  getMovieByCategory
 }
 
 export default movieService

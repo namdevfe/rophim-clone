@@ -1,5 +1,5 @@
 import HistoryMovieList from './history-movie-list'
-import ViewMoreButton from '@/app/(main)/phimhay/_components/gpmn-section/viewmore-button'
+import ViewMoreButton from './viewmore-button'
 import { Movie } from '@/types/movie'
 import Hero from './hero'
 

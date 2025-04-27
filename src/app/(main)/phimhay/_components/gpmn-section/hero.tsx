@@ -8,6 +8,7 @@ const Hero = () => {
       {/* Hero image */}
       <div className='absolute left-0 bottom-0 w-full h-auto md:h-full'>
         <Image
+          unoptimized
           src='/img/hero.webp'
           alt='hero-image'
           width={300}
@@ -20,6 +21,7 @@ const Hero = () => {
           className='absolute top-0 left-0 z-[8] -rotate-[23deg] translate-x-8 -translate-y-7 w-[150px] xs:w-40 h-auto'
           src='/img/vn-flag-full.gif'
           alt='vn-flag'
+          unoptimized
           width={160}
           height={200}
         />
