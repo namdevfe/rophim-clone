@@ -3,7 +3,7 @@
 
 .loading-page-wrap .loading-logo {
   @apply overflow-hidden;
-  animation: logo-load 2s forwards;
+  /* animation: logo-load 2s forwards; */
 }
 
 .loading-page-wrap .loading-logo .logo-wrap {
@@ -31,7 +31,7 @@
 
 /* Icon tank */
 .loading-page-wrap .loading-logo .logo-wrap .tank-simu {
-  @apply relative h-[270px] -mt-[162px] z-[3];
+  @apply relative h-[122px] xs:h-[240px] sm:h-[270px] -mt-[162px] z-[3];
   animation: tank-simu 2s linear;
 }
 

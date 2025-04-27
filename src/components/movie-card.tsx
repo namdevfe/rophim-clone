@@ -20,8 +20,6 @@ const MovieCard = ({ data }: MovieCardProps) => {
     fullThumbURL = `${APP.DOMAIN_CDN_IMAGE}/${thumb_url}`
   }
 
-  console.log('🚀data---->', data)
-
   return (
     !!data && (
       <figure className='overflow-hidden'>

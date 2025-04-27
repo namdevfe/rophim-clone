@@ -30,7 +30,7 @@ const LoadingPage = () => {
               />
 
               {/* Wheels */}
-              <div className='absolute left-[238px] bottom-2 flex items-center'>
+              <div className='absolute left-[106px] xs:left-[210px] sm:left-[238px] bottom-2 flex items-center'>
                 {Array(8)
                   .fill('')
                   .map((_, index) => {
@@ -41,7 +41,7 @@ const LoadingPage = () => {
                         alt='icon-wheel'
                         width={36}
                         height={36}
-                        className='mr-2 last:mr-0 last:ml-5 animate-spin'
+                        className='mr-2 last:mr-0 last:ml-5 animate-spin w-4 h-4 xs:w-9 xs:h-9'
                       />
                     )
                   })}
