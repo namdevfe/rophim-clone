@@ -5,10 +5,12 @@ import { cn } from '@/lib/utils'
 import type { Movie } from '@/types/movie'
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
-import 'swiper/css'
-import 'swiper/css/navigation'
+import { useEffect, useRef, useState } from 'react'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import MovieSkeleton from '@/components/movie-skeleton'
+import 'swiper/css'
+import 'swiper/css/navigation'
 
 interface NewestMovieListProps {
   slug: string
@@ -25,6 +27,22 @@ const NewestMovieList = ({
   wrapperClassName = '',
   titleClassName = ''
 }: NewestMovieListProps) => {
+  const swiperRef = useRef<any>(null)
+  const [isReady, setIsReady] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (movies.length > 0) {
+      const timeout = setTimeout(() => {
+        setIsReady(true)
+        if (swiperRef.current) {
+          swiperRef.current.swiper.init()
+        }
+      }, 3000)
+
+      return () => clearTimeout(timeout)
+    }
+  }, [movies])
+
   return (
     <div
       className={cn(
@@ -53,27 +71,28 @@ const NewestMovieList = ({
 
       {/* List movie */}
       <div className='w-full overflow-hidden'>
-        <Swiper
-          navigation
-          grabCursor
-          spaceBetween={16}
-          modules={[Navigation]}
-          slidesPerView={1}
-          // slidesOffsetAfter={16}
-          breakpoints={{
-            768: {
-              slidesPerView: 2
-            },
-            1024: {
-              slidesPerView: 3
-            },
-            1600: {
-              slidesPerView: 5
-            }
-          }}
-        >
-          {movies.length > 0 &&
-            movies.map((movie) => {
+        {isReady ? (
+          <Swiper
+            ref={swiperRef}
+            init={false}
+            navigation
+            grabCursor
+            spaceBetween={16}
+            modules={[Navigation]}
+            slidesPerView={1}
+            breakpoints={{
+              768: {
+                slidesPerView: 2
+              },
+              1024: {
+                slidesPerView: 3
+              },
+              1600: {
+                slidesPerView: 5
+              }
+            }}
+          >
+            {movies.map((movie) => {
               const { _id } = movie || {}
 
               return (
@@ -82,7 +101,16 @@ const NewestMovieList = ({
                 </SwiperSlide>
               )
             })}
-        </Swiper>
+          </Swiper>
+        ) : (
+          <div className='grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 min-[2560px]:grid-cols-5 gap-4'>
+            {Array(3)
+              .fill('')
+              .map((_, index) => (
+                <MovieSkeleton key={new Date().getTime() + index} />
+              ))}
+          </div>
+        )}
       </div>
     </div>
   )
