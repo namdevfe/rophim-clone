@@ -14,3 +14,8 @@ export type QueryParams = Partial<{
   year: number
   limit: number
 }>
+
+export interface Rect {
+  x: number
+  y: number
+}

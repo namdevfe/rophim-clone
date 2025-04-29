@@ -4,6 +4,7 @@ import SlidersSection from './_components/sliders-section'
 import { ApiResponse } from '@/types/common'
 import movieService from '@/services/movie-service'
 import NewestSection from '@/app/(main)/phimhay/_components/newest-section'
+import CollectionSection from '@/app/(main)/phimhay/_components/collection-section'
 
 /** Fetch data */
 const getMovieList = async () => {
@@ -74,6 +75,11 @@ const PhimHayPage = async () => {
       <CategoriesSection categories={categoriesData || []} />
       <GPMNSection movies={historyMoviesData?.data?.items || []} />
       <NewestSection {...newestSectionProps} />
+      <CollectionSection
+        link='phim-dien-anh-moi-coong'
+        title='Phim Điện Ảnh Mới Coóng'
+        movies={moviesData?.items || []}
+      />
     </>
   )
 }

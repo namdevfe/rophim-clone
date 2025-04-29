@@ -1,41 +1,23 @@
 'use client'
 
-import { AspectRatio } from '@/components/ui/aspect-ratio'
+import MoviePopup from '@/components/movie-popup'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { APP } from '@/constants/app'
 import { ROUTES } from '@/constants/route'
-import { cn } from '@/lib/utils'
+import { Rect } from '@/types/common'
 import { Movie } from '@/types/movie'
-import { Dot, Heart, Info, PlayIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
 
 interface MovieCardProps {
   data: Movie
+  cardType?: 'horizontal' | 'vertical'
 }
 
-interface Rect {
-  x: number
-  y: number
-}
-
-const MovieCard = ({ data }: MovieCardProps) => {
-  const {
-    thumb_url,
-    name,
-    episode_current,
-    lang,
-    origin_name,
-    slug,
-    quality,
-    type,
-    year,
-    category
-  } = data || {}
+const MovieCard = ({ data, cardType = 'horizontal' }: MovieCardProps) => {
+  const { thumb_url, name, episode_current, lang, origin_name, slug } =
+    data || {}
   const movieCardRef = useRef<HTMLElement>(null)
   const [isHovered, setIsHovered] = useState<boolean>(false)
   const [rect, setRect] = useState<Rect>({
@@ -43,7 +25,7 @@ const MovieCard = ({ data }: MovieCardProps) => {
     y: 0
   })
 
-  let fullThumbURL: string = ''
+  let fullThumbURL: string = thumb_url
   if (!thumb_url.startsWith('https')) {
     fullThumbURL = `${APP.DOMAIN_CDN_IMAGE}/${thumb_url}`
   }
@@ -66,8 +48,9 @@ const MovieCard = ({ data }: MovieCardProps) => {
     setIsHovered(false)
   }
 
-  return (
-    !!data && (
+  /** Card type is horizontal */
+  if (cardType === 'horizontal') {
+    return (
       <>
         <figure className='relative' ref={movieCardRef}>
           <div className='overflow-hidden relative flex rounded-md aspect-[378/211] w-full'>
@@ -117,139 +100,78 @@ const MovieCard = ({ data }: MovieCardProps) => {
             <p className='text-[#aaa] text-xs mt-2'>{origin_name}</p>
           </div>
         </figure>
-        {/* Movie card tooltip */}
-        {createPortal(
-          <Card
-            className={cn(
-              'w-full max-w-[420px] absolute z-[100] gradient-dark rounded-md border-0 overflow-hidden transition-transform duration-300 will-change-transform scale-0',
-              isHovered && 'scale-100'
-            )}
-            style={{ top: rect.y, left: rect.x }}
-            onMouseLeave={handleUnHover}
-          >
-            <CardContent className='p-0'>
-              {/* Thumbnail */}
-              <AspectRatio ratio={16 / 9} asChild>
-                <Link href={ROUTES.MAIN.PHIM(slug)}>
-                  <Image
-                    className='w-full h-full object-cover'
-                    src={fullThumbURL}
-                    alt={name}
-                    width={800}
-                    height={200}
-                    title={name}
-                  />
-                </Link>
-              </AspectRatio>
 
-              {/* Content */}
-              <div className='p-6'>
-                {/* Name */}
-                <div className='flex flex-col gap-2 mb-5'>
-                  <h3 className='text-base text-white font-medium capitalize'>
-                    {name}
-                  </h3>
-                  <p className='text-xs text-primaryCustom font-normal capitalize'>
-                    {origin_name}
-                  </p>
-                </div>
-
-                {/* Actions */}
-                <div className='flex items-stretch gap-2'>
-                  <Button
-                    className='bg-primaryCustom text-primaryButtonText hover:bg-primaryCustom transition-opacity hover:opacity-90'
-                    size='lg'
-                  >
-                    <PlayIcon fill='#191B24' strokeWidth={0} />
-                    <span>Xem ngay</span>
-                  </Button>
-
-                  <Button
-                    className='px-3 flex-1 bg-transparent text-white transition-all duration-300 hover:bg-transparent hover:opacity-90 hover:text-white'
-                    variant='outline'
-                    size='lg'
-                  >
-                    <Heart fill='#ffffff' strokeWidth={0} />
-                    <span>Thích</span>
-                  </Button>
-
-                  <Button
-                    className='px-3 flex-1 bg-transparent text-white transition-all duration-300 hover:bg-transparent hover:opacity-90 hover:text-white'
-                    variant='outline'
-                    size='lg'
-                  >
-                    <Info />
-                    <span>Chi tiết</span>
-                  </Button>
-                </div>
-
-                {/* Tags */}
-                <div className='flex items-center gap-1 h-[22px] mt-5'>
-                  {/* IMDb */}
-                  <Badge className='h-full flex items-center gap-1 text-xs font-medium bg-transparent rounded-md border-primaryCustom hover:bg-transparent'>
-                    <span className='text-primaryCustom'>IMDb</span>
-                    <span>7.0</span>
-                  </Badge>
-
-                  {/* Quality */}
-                  {quality && (
-                    <Badge className='px-[6px] h-full rounded-md bg-primaryCustom bg-gradientTagCustom text-black text-xs font-bold uppercase'>
-                      {quality}
-                    </Badge>
-                  )}
-
-                  {/* Type */}
-                  {type && (
-                    <Badge
-                      variant='secondary'
-                      className='bg-white h-full text-xs text-black font-medium rounded-md uppercase px-2 hover:bg-white'
-                    >
-                      {type}
-                    </Badge>
-                  )}
-
-                  {/* Tag year */}
-                  {year && (
-                    <Badge
-                      variant='outline'
-                      className='h-full text-white bg-[#ffffff10] text-xs font-normal'
-                    >
-                      {year}
-                    </Badge>
-                  )}
-
-                  {episode_current && (
-                    <Badge
-                      variant='outline'
-                      className='h-full text-white bg-[#ffffff10] text-xs font-normal'
-                    >
-                      {episode_current}
-                    </Badge>
-                  )}
-                </div>
-
-                {/* Categories */}
-                {category.length > 0 && (
-                  <div className='flex items-center text-xs text-white mt-3 gap-1'>
-                    {category.map((item, index) => (
-                      <div
-                        key={new Date().getTime() + index}
-                        className='flex items-center gap-1'
-                      >
-                        {index > 0 && <Dot fill='#fff' />}
-                        <span>{item.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>,
-          document.body
-        )}
+        <MoviePopup
+          isActive={isHovered}
+          data={data}
+          rect={rect}
+          onClose={handleUnHover}
+        />
       </>
     )
-  )
+  }
+
+  /** Card type is vertical */
+  if (cardType === 'vertical') {
+    return (
+      <>
+        <figure>
+          <div className='relative'>
+            <Link
+              href={ROUTES.MAIN.PHIM(slug)}
+              className='flex h-full w-full overflow-hidden aspect-[192/288] rounded-lg transition-opacity duration-300 hover:opacity-50'
+              onMouseEnter={handleHover}
+            >
+              <Image
+                className='w-full h-full object-cover'
+                src={fullThumbURL}
+                alt={name}
+                width={200}
+                height={300}
+                title={name}
+              />
+            </Link>
+
+            <div className='absolute bottom-0 left-2/4 -translate-x-2/4 flex pointer-events-none'>
+              {lang.includes('+') ? (
+                <>
+                  <Badge className='h-6 bg-[#5e6070] font-normal rounded rounded-b-none rounded-r-none border-none hover:bg-[#5e6070] whitespace-nowrap'>
+                    {lang.split('+')[0]}
+                  </Badge>
+                  <Badge className='left-4 h-6 bg-[#2ca35d] font-normal rounded rounded-b-none rounded-l-none border-none hover:bg-[#2ca35d] whitespace-nowrap'>
+                    {lang.split('+')[1]}
+                  </Badge>
+                </>
+              ) : (
+                <Badge className='left-4 h-6 bg-[#5e6070] font-normal rounded rounded-b-none rounded-l-none border-none hover:bg-[#2ca35d] whitespace-nowrap'>
+                  {lang}
+                </Badge>
+              )}
+            </div>
+          </div>
+
+          <div className='text-center pt-3'>
+            <h3
+              className='text-sm font-normal truncate line-clamp-1 text-wrap whitespace-normal transition-colors duration-300 hover:text-primaryCustom'
+              title={name}
+            >
+              <Link href={ROUTES.MAIN.THE_LOAI.DETAIL(slug)}>{name}</Link>
+            </h3>
+            <p className='mt-[6px] text-[13px] text-[#aaa] font-normal truncate line-clamp-1 text-wrap whitespace-normal'>
+              {origin_name}
+            </p>
+          </div>
+        </figure>
+
+        <MoviePopup
+          isActive={isHovered}
+          data={data}
+          rect={rect}
+          onClose={handleUnHover}
+        />
+      </>
+    )
+  }
 }
 
 export default MovieCard
