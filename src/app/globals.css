@@ -118,6 +118,14 @@
       rgb(255, 0, 153) 130%
     );
   }
+
+  .gradient-dark {
+    background: linear-gradient(
+      0deg,
+      rgba(47, 51, 70, 1),
+      rgba(47, 51, 70, 0.7)
+    );
+  }
 }
 
 @layer utilities {
