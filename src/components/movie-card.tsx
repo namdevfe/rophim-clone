@@ -4,6 +4,7 @@
 import { Badge } from '@/components/ui/badge'
 import { APP } from '@/constants/app'
 import { ROUTES } from '@/constants/route'
+import { cn } from '@/lib/utils'
 // import { Rect } from '@/types/common'
 import { Movie } from '@/types/movie'
 import Image from 'next/image'
@@ -11,11 +12,18 @@ import Link from 'next/link'
 import React, { useRef } from 'react'
 
 interface MovieCardProps {
+  isTopMovie?: boolean
   data: Movie
   cardType?: 'horizontal' | 'vertical'
+  className?: string
 }
 
-const MovieCard = ({ data, cardType = 'horizontal' }: MovieCardProps) => {
+const MovieCard = ({
+  isTopMovie = false,
+  data,
+  cardType = 'horizontal',
+  className = ''
+}: MovieCardProps) => {
   const { thumb_url, name, episode_current, lang, origin_name, slug } =
     data || {}
   const movieCardRef = useRef<HTMLElement>(null)
@@ -115,21 +123,31 @@ const MovieCard = ({ data, cardType = 'horizontal' }: MovieCardProps) => {
   if (cardType === 'vertical') {
     return (
       <>
-        <figure>
+        <figure className={cn(className)}>
           <div className='relative'>
             <Link
               href={ROUTES.MAIN.PHIM(slug)}
-              className='flex h-full w-full overflow-hidden aspect-[192/288] rounded-lg transition-opacity duration-300 hover:opacity-50'
+              className={cn(
+                'movie-thumb flex h-full w-full overflow-hidden aspect-[192/288] rounded-lg transition-all duration-300',
+                {
+                  'aspect-[286/430]': isTopMovie
+                },
+                {
+                  'hover:opacity-50': !isTopMovie
+                }
+              )}
               // onMouseEnter={handleHover}
             >
               <Image
-                className='w-full h-full object-cover'
+                className='w-full h-full object-cover transition-all duration-300'
                 src={fullThumbURL}
                 alt={name}
                 width={200}
                 height={300}
                 title={name}
               />
+
+              {isTopMovie && <div className='mask' />}
             </Link>
 
             <div className='absolute bottom-0 left-2/4 -translate-x-2/4 flex pointer-events-none'>

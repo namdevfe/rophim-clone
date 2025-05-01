@@ -4,7 +4,7 @@ import React from 'react'
 
 interface TextBoxProps {
   title: string
-  link: string
+  link?: string
   hasViewMore?: boolean
 }
 

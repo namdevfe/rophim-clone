@@ -1,0 +1,47 @@
+.top-movies-section {
+  @apply py-[50px];
+}
+
+.top-movies-section .top-movie-list {
+}
+
+.top-movies-section .top-movie-list .top-movie-card img {
+  @apply clip-polygon;
+}
+
+.top-movies-section .top-movie-list .swiper-slide:nth-child(2n) img {
+  @apply clip-polygon-reverse;
+}
+
+/* Thumbnail overlay */
+.top-movies-section
+  .top-movie-list
+  .swiper-slide
+  .top-movie-card
+  .movie-thumb
+  .mask {
+  background-color: rgba(255, 255, 255, 0.05);
+  @apply absolute top-0 left-0 w-full h-full z-[-1] clip-polygon transition-all duration-300;
+}
+
+.top-movies-section
+  .top-movie-list
+  .swiper-slide:nth-child(2n)
+  .top-movie-card
+  .movie-thumb
+  .mask {
+  @apply clip-polygon-reverse;
+}
+
+/* Hover */
+.top-movies-section .top-movie-list .top-movie-card .movie-thumb:hover img {
+  @apply opacity-80;
+}
+
+.top-movies-section .top-movie-list .top-movie-card .movie-thumb:hover .mask {
+  @apply bg-primaryCustom;
+}
+
+.top-movies-section .top-movie-list .top-movie-card .movie-thumb img {
+  @apply absolute left-1 top-1 w-[calc(100%-8px)] h-[calc(100%-8px)];
+}

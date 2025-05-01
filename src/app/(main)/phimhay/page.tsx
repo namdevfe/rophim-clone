@@ -5,6 +5,7 @@ import { ApiResponse } from '@/types/common'
 import movieService from '@/services/movie-service'
 import NewestSection from '@/app/(main)/phimhay/_components/newest-section'
 import CollectionSection from '@/app/(main)/phimhay/_components/collection-section'
+import TopMoviesSection from '@/app/(main)/phimhay/_components/top-movies-section'
 
 /** Fetch data */
 const getMovieList = async () => {
@@ -69,6 +70,9 @@ const PhimHayPage = async () => {
     usukMovies: moviesUSUKResponse?.data?.items || []
   }
 
+  /** Top 10 movies section props */
+  const topMovies = moviesData?.items?.slice(0, 10) || []
+
   return (
     <>
       <SlidersSection movies={slidersSectionMovies} />
@@ -80,6 +84,7 @@ const PhimHayPage = async () => {
         title='Phim Điện Ảnh Mới Coóng'
         movies={moviesData?.items || []}
       />
+      <TopMoviesSection movies={topMovies} />
     </>
   )
 }
