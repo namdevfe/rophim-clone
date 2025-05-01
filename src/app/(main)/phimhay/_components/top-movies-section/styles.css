@@ -20,8 +20,7 @@
   .top-movie-card
   .movie-thumb
   .mask {
-  background-color: rgba(255, 255, 255, 0.05);
-  @apply absolute top-0 left-0 w-full h-full z-[-1] clip-polygon transition-all duration-300;
+  @apply absolute top-0 left-0 w-full h-full z-[-1] clip-polygon bg-transparent transition-all duration-300;
 }
 
 .top-movies-section

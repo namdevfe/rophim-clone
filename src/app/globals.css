@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
     /* Customize */
@@ -126,18 +127,8 @@
       rgba(47, 51, 70, 0.7)
     );
   }
-}
 
-@layer utilities {
-  .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-  /* Hide scrollbar but keep scroll functionality */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
+  /* Custom clip path polygon */
   .clip-polygon {
     clip-path: polygon(
       94.239% 100%,
@@ -244,5 +235,17 @@
       4.826% 99.95%,
       5.761% 100%
     );
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  /* Hide scrollbar but keep scroll functionality */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
