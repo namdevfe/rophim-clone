@@ -1,16 +1,18 @@
 'use client'
 import MovieCard from '@/components/movie-card'
+import MovieSkeleton from '@/components/movie-skeleton'
 import { ROUTES } from '@/constants/route'
+import useSwiperInit from '@/hooks/use-swiper-init'
 import { cn } from '@/lib/utils'
 import type { Movie } from '@/types/movie'
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import MovieSkeleton from '@/components/movie-skeleton'
-import 'swiper/css'
+
+/** CSS import */
 import 'swiper/css/navigation'
+import 'swiper/css'
 
 interface NewestMovieListProps {
   slug: string
@@ -27,21 +29,7 @@ const NewestMovieList = ({
   wrapperClassName = '',
   titleClassName = ''
 }: NewestMovieListProps) => {
-  const swiperRef = useRef<any>(null)
-  const [isReady, setIsReady] = useState<boolean>(false)
-
-  useEffect(() => {
-    if (movies.length > 0) {
-      const timeout = setTimeout(() => {
-        setIsReady(true)
-        if (swiperRef.current) {
-          swiperRef.current.swiper.init()
-        }
-      }, 3000)
-
-      return () => clearTimeout(timeout)
-    }
-  }, [movies])
+  const { ref, isReady } = useSwiperInit<Movie[]>(movies)
 
   return (
     <div
@@ -73,7 +61,7 @@ const NewestMovieList = ({
       <div className='w-full overflow-hidden'>
         {isReady ? (
           <Swiper
-            ref={swiperRef}
+            ref={ref}
             init={false}
             navigation
             grabCursor

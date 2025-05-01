@@ -1,14 +1,14 @@
 'use client'
 
-import MoviePopup from '@/components/movie-popup'
+// import MoviePopup from '@/components/movie-popup'
 import { Badge } from '@/components/ui/badge'
 import { APP } from '@/constants/app'
 import { ROUTES } from '@/constants/route'
-import { Rect } from '@/types/common'
+// import { Rect } from '@/types/common'
 import { Movie } from '@/types/movie'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
 interface MovieCardProps {
   data: Movie
@@ -19,34 +19,34 @@ const MovieCard = ({ data, cardType = 'horizontal' }: MovieCardProps) => {
   const { thumb_url, name, episode_current, lang, origin_name, slug } =
     data || {}
   const movieCardRef = useRef<HTMLElement>(null)
-  const [isHovered, setIsHovered] = useState<boolean>(false)
-  const [rect, setRect] = useState<Rect>({
-    x: 0,
-    y: 0
-  })
+  // const [isHovered, setIsHovered] = useState<boolean>(false)
+  // const [rect, setRect] = useState<Rect>({
+  //   x: 0,
+  //   y: 0
+  // })
 
   let fullThumbURL: string = thumb_url
   if (!thumb_url.startsWith('https')) {
     fullThumbURL = `${APP.DOMAIN_CDN_IMAGE}/${thumb_url}`
   }
 
-  const handleHover = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    const node = e.target as HTMLElement
-    const clientRect = node.getBoundingClientRect() as DOMRect
-    setRect({
-      x: clientRect.left,
-      y: clientRect.top + window?.scrollY
-    })
-    setIsHovered(true)
-  }
+  // const handleHover = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  //   const node = e.target as HTMLElement
+  //   const clientRect = node.getBoundingClientRect() as DOMRect
+  //   setRect({
+  //     x: clientRect.left,
+  //     y: clientRect.top + window?.scrollY
+  //   })
+  //   setIsHovered(true)
+  // }
 
-  const handleUnHover = () => {
-    setRect({
-      x: 0,
-      y: 0
-    })
-    setIsHovered(false)
-  }
+  // const handleUnHover = () => {
+  //   setRect({
+  //     x: 0,
+  //     y: 0
+  //   })
+  //   setIsHovered(false)
+  // }
 
   /** Card type is horizontal */
   if (cardType === 'horizontal') {
@@ -59,7 +59,7 @@ const MovieCard = ({ data, cardType = 'horizontal' }: MovieCardProps) => {
               <Link
                 href={ROUTES.MAIN.PHIM(slug)}
                 className='flex w-full'
-                onMouseEnter={handleHover}
+                // onMouseEnter={handleHover}
               >
                 <Image
                   className='w-full h-full object-cover'
@@ -101,12 +101,12 @@ const MovieCard = ({ data, cardType = 'horizontal' }: MovieCardProps) => {
           </div>
         </figure>
 
-        <MoviePopup
+        {/* <MoviePopup
           isActive={isHovered}
           data={data}
           rect={rect}
           onClose={handleUnHover}
-        />
+        /> */}
       </>
     )
   }
@@ -120,7 +120,7 @@ const MovieCard = ({ data, cardType = 'horizontal' }: MovieCardProps) => {
             <Link
               href={ROUTES.MAIN.PHIM(slug)}
               className='flex h-full w-full overflow-hidden aspect-[192/288] rounded-lg transition-opacity duration-300 hover:opacity-50'
-              onMouseEnter={handleHover}
+              // onMouseEnter={handleHover}
             >
               <Image
                 className='w-full h-full object-cover'
@@ -163,12 +163,12 @@ const MovieCard = ({ data, cardType = 'horizontal' }: MovieCardProps) => {
           </div>
         </figure>
 
-        <MoviePopup
+        {/* <MoviePopup
           isActive={isHovered}
           data={data}
           rect={rect}
           onClose={handleUnHover}
-        />
+        /> */}
       </>
     )
   }
