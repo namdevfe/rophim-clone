@@ -37,6 +37,7 @@ const config: Config = {
         /** Customize */
         headerBackground: 'var(--header-background)',
         primaryCustom: 'var(--primary-color)',
+        textBase: 'var(--text-base-color)',
 
         /** Default theme of shadcn ui */
         background: 'hsl(var(--background))',

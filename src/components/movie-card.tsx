@@ -2,8 +2,8 @@
 
 // import MoviePopup from '@/components/movie-popup'
 import { Badge } from '@/components/ui/badge'
-import { APP } from '@/constants/app'
 import { ROUTES } from '@/constants/route'
+import { handleURLImage } from '@/lib/helper-function'
 import { cn } from '@/lib/utils'
 // import { Rect } from '@/types/common'
 import { Movie } from '@/types/movie'
@@ -45,10 +45,11 @@ const MovieCard = ({
   //   y: 0
   // })
 
-  let fullThumbURL: string = thumb_url
-  if (!thumb_url.startsWith('https')) {
-    fullThumbURL = `${APP.DOMAIN_CDN_IMAGE}/${thumb_url}`
-  }
+  // let fullThumbURL: string = thumb_url
+  // if (!thumb_url.startsWith('https')) {
+  //   fullThumbURL = `${APP.DOMAIN_CDN_IMAGE}/${thumb_url}`
+  // }
+  const fullThumbURL = handleURLImage(thumb_url)
 
   // const handleHover = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
   //   const node = e.target as HTMLElement

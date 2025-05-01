@@ -5,13 +5,17 @@ import './styles.css'
 
 interface TopMoviesSectionProps {
   movies: Movie[]
+  title: string
 }
 
-const TopMoviesSection = ({ movies = [] }: TopMoviesSectionProps) => {
+const TopMoviesSection = ({
+  movies = [],
+  title = ''
+}: TopMoviesSectionProps) => {
   return (
     <section className='top-movies-section'>
       <div className='container-fluid'>
-        <TextBox title='Top 10 Phim Hôm Nay' />
+        <TextBox title={title} />
         <TopMovieList movies={movies} />
       </div>
     </section>

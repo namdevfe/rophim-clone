@@ -1,11 +1,12 @@
-import GPMNSection from '@/app/(main)/phimhay/_components/gpmn-section'
+import GPMNSection from './_components/gpmn-section'
 import CategoriesSection from './_components/categories-section'
 import SlidersSection from './_components/sliders-section'
 import { ApiResponse } from '@/types/common'
 import movieService from '@/services/movie-service'
-import NewestSection from '@/app/(main)/phimhay/_components/newest-section'
-import CollectionSection from '@/app/(main)/phimhay/_components/collection-section'
-import TopMoviesSection from '@/app/(main)/phimhay/_components/top-movies-section'
+import NewestSection from './_components/newest-section'
+import CollectionSection from './_components/collection-section'
+import TopMoviesSection from './_components/top-movies-section'
+import SingleMoviesSection from '@/app/(main)/phimhay/_components/single-movies-section'
 
 /** Fetch data */
 const getMovieList = async () => {
@@ -63,6 +64,9 @@ const PhimHayPage = async () => {
   /** Get movies korean */
   const moviesUSUKResponse = await movieService.getMoviesByCountry('au-my')
 
+  /** Get single movies */
+  const singleMovieData = await movieService.getMovieByCategory('hanh-dong')
+
   /** Newest section props */
   const newestSectionProps = {
     koreanMovies: moviesKoreanResponse?.data?.items || [],
@@ -84,7 +88,12 @@ const PhimHayPage = async () => {
         title='Phim Điện Ảnh Mới Coóng'
         movies={moviesData?.items || []}
       />
-      <TopMoviesSection movies={topMovies} />
+      <TopMoviesSection title='Top 10 Phim Hôm Nay' movies={topMovies} />
+      <SingleMoviesSection
+        title='Mãn Nhãn với Phim Hành Động'
+        link='hanh-dong'
+        movies={singleMovieData?.data?.items || []}
+      />
     </>
   )
 }
