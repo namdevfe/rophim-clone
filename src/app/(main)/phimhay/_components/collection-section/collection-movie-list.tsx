@@ -24,6 +24,9 @@ const CollectionMovieList = ({ movies = [] }: CollectionMovieListProps) => {
             slidesPerView: 3
           },
           1024: {
+            slidesPerView: 7
+          },
+          1600: {
             slidesPerView: 8
           }
         }}

@@ -9,7 +9,7 @@ export type QueryParams = Partial<{
   sort_field: string
   sort_type: 'asc' | 'desc'
   sort_lang: string
-  category: string
+  category: string | string[]
   country: string
   year: number
   limit: number

@@ -4,7 +4,7 @@ import { Movie } from '@/types/movie'
 
 interface SingleMoviesSectionProps {
   movies: Movie[]
-  link: string
+  link?: string
   title: string
 }
 
@@ -16,7 +16,7 @@ const SingleMoviesSection = ({
   return (
     <section className='py-[50px]'>
       <div className='container-fluid'>
-        <TextBox hasViewMore title={title} link={link} />
+        <TextBox hasViewMore={!!link} title={title} link={link} />
         <MovieList movies={movies} />
       </div>
     </section>

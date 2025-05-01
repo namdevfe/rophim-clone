@@ -6,7 +6,7 @@ import { Movie } from '@/types/movie'
 interface CollectionSectionProps {
   movies: Movie[]
   title: string
-  link: string
+  link?: string
 }
 
 const CollectionSection = ({
@@ -18,7 +18,7 @@ const CollectionSection = ({
     <section className='py-[50px]'>
       <div className='container-fluid'>
         <TextBox
-          hasViewMore
+          hasViewMore={!!link}
           title={title}
           link={ROUTES.MAIN.THE_LOAI.DETAIL(link)}
         />

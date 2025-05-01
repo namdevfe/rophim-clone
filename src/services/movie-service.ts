@@ -29,7 +29,7 @@ const getMovieBySlug = async (slug: string) => {
 }
 
 /** Get movies by category */
-const getMovieByCategory = async (slug: string, queryParams?: QueryParams) => {
+const getMovieByGenre = async (slug: string, queryParams?: QueryParams) => {
   try {
     const query = queryString.stringify(queryParams || {})
     const response = await fetch(
@@ -41,10 +41,24 @@ const getMovieByCategory = async (slug: string, queryParams?: QueryParams) => {
   }
 }
 
+/** Get movies by filters */
+const getMoviesByType = async (type: string, queryParams?: QueryParams) => {
+  try {
+    const query = queryString.stringify(queryParams || {})
+    const response = await fetch(
+      `https://phimapi.com/v1/api/danh-sach/${type}?${query}`
+    )
+    return await response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const movieService = {
   getMovieBySlug,
   getMoviesByCountry,
-  getMovieByCategory
+  getMovieByGenre,
+  getMoviesByType
 }
 
 export default movieService
