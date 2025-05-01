@@ -7,6 +7,7 @@ import { ROUTES } from '@/constants/route'
 import { cn } from '@/lib/utils'
 // import { Rect } from '@/types/common'
 import { Movie } from '@/types/movie'
+import { Dot } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useRef } from 'react'
@@ -16,16 +17,27 @@ interface MovieCardProps {
   data: Movie
   cardType?: 'horizontal' | 'vertical'
   className?: string
+  topMovieNumber?: number
 }
 
 const MovieCard = ({
   isTopMovie = false,
   data,
   cardType = 'horizontal',
-  className = ''
+  className = '',
+  topMovieNumber
 }: MovieCardProps) => {
-  const { thumb_url, name, episode_current, lang, origin_name, slug } =
-    data || {}
+  const {
+    thumb_url,
+    name,
+    episode_current,
+    lang,
+    origin_name,
+    slug,
+    type,
+    year,
+    time
+  } = data || {}
   const movieCardRef = useRef<HTMLElement>(null)
   // const [isHovered, setIsHovered] = useState<boolean>(false)
   // const [rect, setRect] = useState<Rect>({
@@ -168,16 +180,58 @@ const MovieCard = ({
             </div>
           </div>
 
-          <div className='text-center pt-3'>
-            <h3
-              className='text-sm font-normal truncate line-clamp-1 text-wrap whitespace-normal transition-colors duration-300 hover:text-primaryCustom'
-              title={name}
-            >
-              <Link href={ROUTES.MAIN.THE_LOAI.DETAIL(slug)}>{name}</Link>
-            </h3>
-            <p className='mt-[6px] text-[13px] text-[#aaa] font-normal truncate line-clamp-1 text-wrap whitespace-normal'>
-              {origin_name}
-            </p>
+          <div
+            className={cn('text-center pt-3', {
+              'text-left flex gap-6': isTopMovie
+            })}
+          >
+            {/* Top number */}
+            {isTopMovie && topMovieNumber && (
+              <div className='pr-2 text-6xl italic font-extrabold bg-clip-text text-transparent gradient-text'>
+                {topMovieNumber}
+              </div>
+            )}
+
+            <div>
+              <h3
+                className='text-sm font-normal truncate line-clamp-1 text-wrap whitespace-normal transition-colors duration-300 hover:text-primaryCustom'
+                title={name}
+              >
+                <Link href={ROUTES.MAIN.THE_LOAI.DETAIL(slug)}>{name}</Link>
+              </h3>
+              <p className='mt-[6px] text-[13px] text-[#aaa] font-normal truncate line-clamp-1 text-wrap whitespace-normal'>
+                {origin_name}
+              </p>
+
+              {/* Bottom */}
+              {isTopMovie && (
+                <div className='flex items-start mt-[6px]'>
+                  {type && (
+                    <div className='capitalize text-xs font-normal whitespace-nowrap'>
+                      {type}
+                    </div>
+                  )}
+                  {year && (
+                    <div className='relative capitalize text-xs font-normal pl-4 whitespace-nowrap'>
+                      <Dot
+                        size={18}
+                        className='absolute left-0 top-2/4 -translate-y-2/4'
+                      />
+                      {year}
+                    </div>
+                  )}
+                  {time && (
+                    <div className='relative capitalize text-xs font-normal pl-4 whitespace-nowrap  '>
+                      <Dot
+                        size={18}
+                        className='absolute left-0 top-2/4 -translate-y-2/4'
+                      />
+                      {time}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </figure>
 

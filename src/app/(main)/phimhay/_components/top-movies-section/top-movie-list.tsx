@@ -37,13 +37,14 @@ const TopMovieList = ({ movies = [] }: TopMovieListProps) => {
           }}
         >
           {movies.length > 0 &&
-            movies.map((movie) => (
+            movies.map((movie, index) => (
               <SwiperSlide key={movie._id}>
                 <MovieCard
                   className='top-movie-card'
                   cardType='vertical'
                   isTopMovie
                   data={movie}
+                  topMovieNumber={index + 1}
                 />
               </SwiperSlide>
             ))}
