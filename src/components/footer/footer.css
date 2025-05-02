@@ -1,0 +1,39 @@
+.footer {
+  @apply py-8 bg-footerBackground;
+}
+
+.footer .container-fluid {
+  @apply grid grid-cols-1 md:grid-cols-2;
+}
+
+.footer .content {
+  @apply md:col-start-1 md:col-end-2;
+}
+
+.footer .content .content-top {
+  @apply flex items-center gap-2 w-fit py-2 px-3 mx-auto md:mx-0 mb-6 rounded-[32px] bg-[#78140f];
+}
+
+.footer .content .content-middle {
+  @apply flex items-center justify-center flex-col md:flex-row md:justify-start gap-1 md:gap-12 mb-8;
+}
+
+.footer .content .content-bottom {
+  @apply mb-4;
+}
+
+.footer .content .content-bottom .menu-list {
+  @apply flex items-center flex-wrap justify-center md:justify-start;
+}
+
+.footer .content .content-bottom .menu-list + .menu-list {
+  @apply mt-4;
+}
+
+.footer .content .content-bottom .menu-list li a {
+  @apply flex py-2 md:py-0 px-3 text-sm first-letter:uppercase transition-colors duration-300 hover:text-primaryCustom;
+}
+
+.footer .content .content-bottom .menu-list li:first-child a {
+  @apply pl-0;
+}

@@ -36,6 +36,7 @@ const config: Config = {
       colors: {
         /** Customize */
         headerBackground: 'var(--header-background)',
+        footerBackground: 'var(--footer-background)',
         primaryCustom: 'var(--primary-color)',
         textBase: 'var(--text-base-color)',
 

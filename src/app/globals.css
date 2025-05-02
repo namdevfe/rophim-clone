@@ -6,6 +6,7 @@
   :root {
     /* Customize */
     --header-background: #0f111a;
+    --footer-background: #0f111a;
     --primary-color: #ffd875;
     --size-navigation-button: 40px;
     --text-base-color: #aaa;
