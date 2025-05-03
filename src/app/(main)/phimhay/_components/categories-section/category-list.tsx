@@ -1,18 +1,7 @@
 import { Category } from '@/types/category'
 import CategoryCard from '@/components/category-card'
 import CategoryRemain from './category-remain'
-
-const GRADIENTS = [
-  'from-purple-400 to-pink-500',
-  'from-green-400 to-blue-500',
-  'from-yellow-400 to-red-500',
-  'from-pink-500 to-orange-500',
-  'from-indigo-500 to-purple-500'
-]
-
-const getRandomColor = () => {
-  return GRADIENTS[Math.floor(Math.random() * GRADIENTS.length)]
-}
+import { getRandomColor } from '@/lib/helper-function'
 
 interface CategoryListProps {
   categories: Category[]

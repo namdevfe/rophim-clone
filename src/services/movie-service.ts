@@ -54,11 +54,24 @@ const getMoviesByType = async (type: string, queryParams?: QueryParams) => {
   }
 }
 
+/** Get all genres */
+const getGenres = async () => {
+  try {
+    const response = await fetch('https://phimapi.com/the-loai')
+    const data = await response.json()
+
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const movieService = {
   getMovieBySlug,
   getMoviesByCountry,
   getMovieByGenre,
-  getMoviesByType
+  getMoviesByType,
+  getGenres
 }
 
 export default movieService

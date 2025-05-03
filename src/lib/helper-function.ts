@@ -1,4 +1,5 @@
 import { APP } from '@/constants/app'
+import { GRADIENTS } from '@/constants/color'
 
 export const handleURLImage = (url: string): string => {
   let fullURL: string = url
@@ -8,4 +9,8 @@ export const handleURLImage = (url: string): string => {
   }
 
   return fullURL
+}
+
+export const getRandomColor = (colors: string[] = GRADIENTS) => {
+  return colors[Math.floor(Math.random() * colors.length)]
 }
