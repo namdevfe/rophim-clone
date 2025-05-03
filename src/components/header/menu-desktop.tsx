@@ -1,33 +1,40 @@
 'use client'
-import { MENU_LIST } from '@/constants/menu'
+import { MenuItem } from '@/constants/menu'
 import { cn } from '@/lib/utils'
 import { ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
-const MenuDesktop = () => {
-  const pathname = usePathname()
-  const subMenuTriggerRef = useRef<HTMLLIElement | null>(null)
-  const [isShowSubMenu, setIsShowSubMenu] = useState<boolean>(false)
+interface MenuDesktopProps {
+  menuList: MenuItem[]
+}
 
-  const handleToggleSubMenu = () => {
-    setIsShowSubMenu((prev) => !prev)
+const MenuDesktop = ({ menuList = [] }: MenuDesktopProps) => {
+  const pathname = usePathname()
+  const subMenuTriggerRefs = useRef<(HTMLLIElement | null)[]>([])
+  const [showSubMenus, setShowSubMenus] = useState<number[]>([])
+
+  const handleToggleSubMenu = (index: number) => {
+    if (showSubMenus.some((currentIndex) => currentIndex === index)) {
+      setShowSubMenus((prev) => prev.filter((item) => item !== index))
+    } else {
+      setShowSubMenus((prev) => [...prev, index])
+    }
   }
 
   const handleCloseSubMenu = () => {
-    setIsShowSubMenu(false)
+    setShowSubMenus([])
   }
 
   /** Handle close sub menu when click outside */
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (
-        subMenuTriggerRef.current &&
-        !subMenuTriggerRef.current.contains(e.target as Node)
-      ) {
-        e.stopPropagation()
-        e.preventDefault()
+      const clickedInsideAny = subMenuTriggerRefs.current.some((el) => {
+        return el && el.contains(e.target as Node)
+      })
+
+      if (!clickedInsideAny) {
         handleCloseSubMenu()
       }
     }
@@ -41,7 +48,7 @@ const MenuDesktop = () => {
 
   return (
     <ul className='hidden md:flex items-center'>
-      {MENU_LIST.map((menuItem, parentIndex) => {
+      {menuList.map((menuItem, parentIndex) => {
         const { title, href, items } = menuItem
         const isActive = href === pathname
 
@@ -65,16 +72,18 @@ const MenuDesktop = () => {
         ) : (
           <li
             key={menuItem.title || new Date().getTime() + parentIndex}
-            ref={subMenuTriggerRef}
+            ref={(el) => {
+              subMenuTriggerRefs.current[parentIndex] = el
+            }}
             className='relative flex items-center gap-1 px-[10px] text-white text-xs text-nowrap leading-9 font-normal cursor-pointer'
-            onClick={handleToggleSubMenu}
+            onClick={() => handleToggleSubMenu(parentIndex)}
           >
             <span>{title}</span>
             <ChevronDown size={14} />
 
             {/* Submenu */}
-            {isShowSubMenu && (
-              <ul className='absolute top-full left-0 z-[2] flex flex-col min-w-40 rounded-md overflow-hidden bg-[#0f111af2]'>
+            {showSubMenus.some((item) => item === parentIndex) && (
+              <ul className='h-[50vh] custom-scroll overflow-y-auto absolute top-full left-0 z-[2] flex flex-col min-w-40 rounded-md overflow-hidden bg-[#0f111af2]'>
                 {items?.map((subMenuItem, index) => {
                   return (
                     <li key={subMenuItem.title || new Date().getTime() + index}>

@@ -10,10 +10,16 @@ import DownloadApp from './download-app'
 import Membership from './membership'
 import MenuDesktop from './menu-desktop'
 import MenuMobile from './menu-mobile'
+import movieService from '@/services/movie-service'
+import { MenuItem } from '@/constants/menu'
+import { CategoryDetail } from '@/types/category'
+import { Country } from '@/types/movie'
 
 const Header = () => {
   const headerRef = useRef<HTMLElement | null>(null)
   const [isShowSearch, setIsShowSearch] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [menuList, setMenuList] = useState<MenuItem[]>([])
 
   const handleToggleSearchInput = () => {
     setIsShowSearch((prev) => !prev)
@@ -40,6 +46,60 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleHeaderBgColorChange)
   }, [])
 
+  /** Get genres and countries to render menus */
+  useEffect(() => {
+    const getMenuList = async () => {
+      setIsLoading(true)
+      try {
+        const genres: CategoryDetail[] = await movieService.getGenres()
+        const countries: Country[] = await movieService.getCountries()
+
+        setMenuList([
+          {
+            title: 'Chủ đề',
+            href: ROUTES.MAIN.CHU_DE
+          },
+          {
+            title: 'Thể loại',
+            items: genres.map((genre) => ({
+              title: genre.name,
+              href: ROUTES.MAIN.THE_LOAI.DETAIL(genre.slug)
+            }))
+          },
+          {
+            title: 'Phim lẻ',
+            href: ROUTES.MAIN.PHIM_LE
+          },
+          {
+            title: 'Phim bộ',
+            href: ROUTES.MAIN.PHIM_BO
+          },
+          {
+            title: 'Quốc gia',
+            items: countries.map((country) => ({
+              title: country.name,
+              href: ROUTES.MAIN.QUOC_GIA(country.slug)
+            }))
+          },
+          {
+            title: 'Diễn viên',
+            href: ROUTES.MAIN.DIEN_VIEN
+          },
+          {
+            title: 'Lịch chiếu',
+            href: ROUTES.MAIN.LICH_CHIEU
+          }
+        ])
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    getMenuList()
+  }, [])
+
   return (
     <header
       className='fixed top-0 left-0 z-[100] w-full h-[74px] py-3 bg-transparent transition-colors duration-300'
@@ -52,7 +112,7 @@ const Header = () => {
               hidden: isShowSearch
             })}
           >
-            <MenuMobile />
+            {!isLoading && <MenuMobile menuList={menuList} />}
             <Link href={ROUTES.MAIN.PHIM_HAY} className='flex'>
               <Image
                 src='/img/logo.svg'
@@ -74,7 +134,7 @@ const Header = () => {
               }
             )}
           />
-          <MenuDesktop />
+          {!isLoading && <MenuDesktop menuList={menuList} />}
         </div>
 
         <div className='flex items-center gap-7'>

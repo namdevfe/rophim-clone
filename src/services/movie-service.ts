@@ -66,12 +66,25 @@ const getGenres = async () => {
   }
 }
 
+/** Get all countries */
+const getCountries = async () => {
+  try {
+    const response = await fetch('https://phimapi.com/quoc-gia')
+    const data = await response.json()
+
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const movieService = {
   getMovieBySlug,
   getMoviesByCountry,
   getMovieByGenre,
   getMoviesByType,
-  getGenres
+  getGenres,
+  getCountries
 }
 
 export default movieService
