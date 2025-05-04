@@ -1,0 +1,4 @@
+.top-movies .movies .movies-item .number {
+  @apply w-[60px] text-[4em] text-[#191B24] font-extrabold;
+  text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+}

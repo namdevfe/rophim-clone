@@ -5,8 +5,7 @@ import '@/app/globals.css'
 
 const roboto = Roboto({
   subsets: ['vietnamese'],
-  weight: ['300', '400', '500', '700', '900'],
-  preload: false
+  weight: ['300', '400', '500', '700', '900']
 })
 
 export const metadata: Metadata = {

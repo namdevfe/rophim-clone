@@ -163,4 +163,8 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  .text-stroke-1 {
+    -webkit-text-stroke: 1px #fff;
+  }
 }

@@ -36,7 +36,8 @@ const MovieCard = ({
     slug,
     type,
     year,
-    time
+    time,
+    poster_url
   } = data || {}
   const movieCardRef = useRef<HTMLElement>(null)
   // const [isHovered, setIsHovered] = useState<boolean>(false)
@@ -50,6 +51,7 @@ const MovieCard = ({
   //   fullThumbURL = `${APP.DOMAIN_CDN_IMAGE}/${thumb_url}`
   // }
   const fullThumbURL = handleURLImage(thumb_url)
+  const fullPosterURL = handleURLImage(poster_url)
 
   // const handleHover = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
   //   const node = e.target as HTMLElement
@@ -153,7 +155,7 @@ const MovieCard = ({
             >
               <Image
                 className='w-full h-full object-cover transition-all duration-300'
-                src={fullThumbURL}
+                src={fullPosterURL}
                 alt={name}
                 width={200}
                 height={300}
@@ -163,22 +165,24 @@ const MovieCard = ({
               {isTopMovie && <div className='mask' />}
             </Link>
 
-            <div className='absolute bottom-0 left-2/4 -translate-x-2/4 flex pointer-events-none'>
-              {lang.includes('+') ? (
-                <>
-                  <Badge className='h-6 bg-[#5e6070] font-normal rounded rounded-b-none rounded-r-none border-none hover:bg-[#5e6070] whitespace-nowrap'>
-                    {lang.split('+')[0]}
+            {!!lang && (
+              <div className='absolute bottom-0 left-2/4 -translate-x-2/4 flex pointer-events-none'>
+                {lang?.includes('+') ? (
+                  <>
+                    <Badge className='h-6 bg-[#5e6070] font-normal rounded rounded-b-none rounded-r-none border-none hover:bg-[#5e6070] whitespace-nowrap'>
+                      {lang.split('+')[0]}
+                    </Badge>
+                    <Badge className='left-4 h-6 bg-[#2ca35d] font-normal rounded rounded-b-none rounded-l-none border-none hover:bg-[#2ca35d] whitespace-nowrap'>
+                      {lang.split('+')[1]}
+                    </Badge>
+                  </>
+                ) : (
+                  <Badge className='left-4 h-6 bg-[#5e6070] font-normal rounded rounded-b-none rounded-l-none border-none hover:bg-[#2ca35d] whitespace-nowrap'>
+                    {lang}
                   </Badge>
-                  <Badge className='left-4 h-6 bg-[#2ca35d] font-normal rounded rounded-b-none rounded-l-none border-none hover:bg-[#2ca35d] whitespace-nowrap'>
-                    {lang.split('+')[1]}
-                  </Badge>
-                </>
-              ) : (
-                <Badge className='left-4 h-6 bg-[#5e6070] font-normal rounded rounded-b-none rounded-l-none border-none hover:bg-[#2ca35d] whitespace-nowrap'>
-                  {lang}
-                </Badge>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
 
           <div

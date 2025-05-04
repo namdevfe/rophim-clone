@@ -78,13 +78,27 @@ const getCountries = async () => {
   }
 }
 
+/** Get list movies */
+const getMovies = async (page: number = 1) => {
+  try {
+    const response = await fetch(
+      `https://phimapi.com/danh-sach/phim-moi-cap-nhat?page=${page}`
+    )
+
+    return await response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const movieService = {
   getMovieBySlug,
   getMoviesByCountry,
   getMovieByGenre,
   getMoviesByType,
   getGenres,
-  getCountries
+  getCountries,
+  getMovies
 }
 
 export default movieService
