@@ -10,9 +10,11 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip'
 import { useToast } from '@/hooks/use-toast'
+import { Episode } from '@/types/movie'
 
 interface ActionsProps {
   slug: string
+  episodes: Episode[]
 }
 
 const ACTIONS: {
@@ -52,8 +54,10 @@ const ACTIONS: {
   }
 ]
 
-const Actions = ({ slug }: ActionsProps) => {
+const Actions = ({ slug, episodes = [] }: ActionsProps) => {
   const { toast } = useToast()
+  const serverName = episodes[0]?.server_name || ''
+  const episodeSlug = episodes[0]?.server_data[0].slug || ''
 
   const handleShowNotification = () => {
     toast({
@@ -64,7 +68,13 @@ const Actions = ({ slug }: ActionsProps) => {
   return (
     <div className='flex flex-col xs:flex-row items-center gap-8 mb-[30px]'>
       <Link
-        href={ROUTES.MAIN.XEM_PHIM(slug)}
+        href={{
+          pathname: ROUTES.MAIN.XEM_PHIM(slug),
+          query: {
+            serverName,
+            episode: episodeSlug
+          }
+        }}
         className='flex items-center justify-center gap-4 h-[60px] w-fit py-4 px-8 text-[#191B24] text-xl capitalize text-nowrap font-medium gradient-btn rounded-[32px] transition-all duration-300'
       >
         <Play fill='#191B24' />

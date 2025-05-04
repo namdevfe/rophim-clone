@@ -9,12 +9,14 @@ interface ContentTabsProps {
   episodes: Episode[]
   trailerURL: string
   movies: Movie[]
+  slug: string
 }
 
 const ContentTabs = ({
   episodes = [],
   trailerURL,
-  movies = []
+  movies = [],
+  slug
 }: ContentTabsProps) => {
   return (
     <Tabs defaultValue='episode' className='content-tabs'>
@@ -40,7 +42,7 @@ const ContentTabs = ({
       </TabsList>
 
       <TabsContent value='episode'>
-        <Episodes episodes={episodes} />
+        <Episodes episodes={episodes} slug={slug} />
       </TabsContent>
       <TabsContent value='gallery'>
         <Gallery trailerURL={trailerURL} />

@@ -1,5 +1,5 @@
 'use client'
-import { Button } from '@/components/ui/button'
+import EpisodeItem from '@/components/episode-item'
 import {
   Select,
   SelectContent,
@@ -8,14 +8,14 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Episode } from '@/types/movie'
-import { Play } from 'lucide-react'
 import { useState } from 'react'
 
 interface EpisodesProps {
   episodes: Episode[]
+  slug: string
 }
 
-const Episodes = ({ episodes = [] }: EpisodesProps) => {
+const Episodes = ({ episodes = [], slug }: EpisodesProps) => {
   const [server, setServer] = useState<string>(episodes[0].server_name)
 
   const handleServerChange = (value: string) => {
@@ -48,17 +48,15 @@ const Episodes = ({ episodes = [] }: EpisodesProps) => {
             if (item.server_name === server) {
               return item.server_data.map((episode, index) => {
                 return (
-                  <Button
+                  <EpisodeItem
                     key={new Date().getTime() + index}
-                    className='group px-1 gap-[10px] h-[50px] rounded-md bg-[#282B3A] hover:bg-[#282B3A] hover:text-primaryCustom [&_svg]:size-3'
-                  >
-                    <Play
-                      size={12}
-                      fill='#fff'
-                      className='flex-shrink-0 transition-colors duration-300 group-hover:fill-primaryCustom'
-                    />
-                    <span>{episode.name}</span>
-                  </Button>
+                    data={{
+                      currentServer: server,
+                      name: episode.name,
+                      episodeSlug: episode.slug,
+                      slug
+                    }}
+                  />
                 )
               })
             }

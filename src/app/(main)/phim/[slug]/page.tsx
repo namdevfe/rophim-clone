@@ -48,8 +48,9 @@ const MovieDetailPage = async ({ params }: MovieDetailPageProps) => {
             <TopMovies data={movies?.items || []} />
           </div>
           <div className='flex-1 p-10 bg-[rgba(25,27,36,.3)] rounded-3xl backdrop-blur-xl'>
-            <Actions slug={params?.slug} />
+            <Actions slug={params?.slug} episodes={episodes} />
             <ContentTabs
+              slug={params?.slug}
               episodes={episodes}
               trailerURL={trailerURL}
               movies={movies?.items || []}
