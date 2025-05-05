@@ -16,9 +16,13 @@ const MovieFilters = () => {
   const pathname = usePathname()
   const router = useRouter()
   const searchParams = useSearchParams()
-  const filtersObject = {
-    country: searchParams.get('country'),
+  const filtersObject: any = {
     year: Number(searchParams.get('year'))
+  }
+
+  /** Add country when pathname !== 'quoc-gia' */
+  if (!pathname.includes('quoc-gia')) {
+    filtersObject.country = searchParams.get('country')
   }
 
   const listYears = useMemo(() => {
@@ -90,11 +94,13 @@ const MovieFilters = () => {
       {isShowFilters && (
         <div className='border border-[#ffffff10] rounded-lg'>
           {/* Filters */}
-          <FilterByCountry
-            current={filtersObject.country || undefined}
-            data={countries}
-            onChange={handleCountryChange}
-          />
+          {!pathname.includes('quoc-gia') && (
+            <FilterByCountry
+              current={filtersObject.country || undefined}
+              data={countries}
+              onChange={handleCountryChange}
+            />
+          )}
 
           <FilterByYear
             current={filtersObject.year || undefined}

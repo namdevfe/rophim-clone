@@ -2,12 +2,12 @@ import movieService from '@/services/movie-service'
 import { Suspense } from 'react'
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links'
 import MovieList from '@/components/movie-list'
+import { QueryParams } from '@/types/common'
+import MovieFilters from '@/components/movie-filters'
 
 interface CountryMoviesPageProps {
   params: { slug: string }
-  searchParams?: {
-    page: string
-  }
+  searchParams?: QueryParams
 }
 
 const CountryMoviesPage = async ({
@@ -17,7 +17,9 @@ const CountryMoviesPage = async ({
   const countrySlug = params?.slug
   const moviesRes = await movieService.getMoviesByCountry(countrySlug, {
     limit: 32,
-    page: Number(searchParams?.page) || 1
+    page: Number(searchParams?.page) || 1,
+    country: searchParams?.country || '',
+    year: searchParams?.year
   })
   const movies = moviesRes?.data?.items || []
   const titlePage = `Phim ${moviesRes?.data?.titlePage}`
@@ -28,6 +30,8 @@ const CountryMoviesPage = async ({
         <h1 className='mb-5 text-[42px] leading-[50px] font-semibold capitalize'>
           {titlePage}
         </h1>
+
+        <MovieFilters />
 
         <Suspense fallback={<div>Loading..</div>}>
           <MovieList data={movies} />
