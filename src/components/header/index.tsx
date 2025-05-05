@@ -101,14 +101,6 @@ const Header = () => {
               title: country.name,
               href: ROUTES.MAIN.QUOC_GIA(country.slug)
             }))
-          },
-          {
-            title: 'Diễn viên',
-            href: ROUTES.MAIN.DIEN_VIEN
-          },
-          {
-            title: 'Lịch chiếu',
-            href: ROUTES.MAIN.LICH_CHIEU
           }
         ])
       } catch (error) {
