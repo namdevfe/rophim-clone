@@ -15,7 +15,7 @@ import { ChevronRight, CircleCheck, LoaderCircle } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface MovieInfoProps {
   data: MovieDetail
@@ -52,14 +52,16 @@ const MovieInfo = ({ data, episodes = [] }: MovieInfoProps) => {
   useEffect(() => {
     if (currentServer) {
       setServer(currentServer)
+    } else {
+      setServer(episodes[0].server_name)
     }
-  }, [currentServer])
+  }, [currentServer, episodes])
 
   return (
     <>
       <div className='hidden md:flex gap-6 p-[30px] pl-0 border-b border-b-[#ffffff10]'>
         {/* Thumb */}
-        <div className='flex-shrink-0 w-[100px] aspect-[100/150] overflow-hidden rounded-lg'>
+        <div className='flex-shrink-0 w-[100px] h-[150px] overflow-hidden rounded-lg'>
           <Image
             src={poster_url}
             alt={name}
@@ -70,7 +72,7 @@ const MovieInfo = ({ data, episodes = [] }: MovieInfoProps) => {
         </div>
 
         {/* Informations */}
-        <div className='max-w-[440px]'>
+        <div className='flex-1 flex-shrink-0 w-[440px]'>
           <h3 className='mb-2 text-xl font-semibold truncate capitalize transition-colors duration-300 hover:text-primaryCustom'>
             <Link href={ROUTES.MAIN.PHIM(slug)} title={name}>
               {name}
@@ -185,7 +187,7 @@ const MovieInfo = ({ data, episodes = [] }: MovieInfoProps) => {
         </div>
 
         {/* Description */}
-        <div>
+        <div className='flex-1'>
           <p className='mb-6 text-textBase text-sm text-ellipsis line-clamp-4'>
             {content}
           </p>

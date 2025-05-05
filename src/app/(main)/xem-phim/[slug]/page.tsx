@@ -25,13 +25,12 @@ const WatchMoviePage = async ({
   const moviesData = await movieService.getMovies()
   const recommendMovies = moviesData?.items || []
 
-  const currentServerData = episodes?.find(
-    (item) => item.server_name === serverName
-  )
+  const currentServerData =
+    episodes?.find((item) => item.server_name === serverName) || episodes[0]
 
-  const currentEpisodeData = currentServerData?.server_data.find(
-    (item) => item.slug === episode
-  )
+  const currentEpisodeData =
+    currentServerData?.server_data.find((item) => item.slug === episode) ||
+    currentServerData.server_data[0]
 
   return (
     <>
