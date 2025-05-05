@@ -83,7 +83,7 @@ const SearchInput = ({
       />
       <Input
         className='h-full px-12 py-[6px] text-sm placeholder:text-white placeholder:text-xs border-transparent bg-[#ffffff14] focus:border-white'
-        placeholder='Tìm kiếm phim, diễn viên'
+        placeholder='Tìm kiếm phim'
         onChange={handleSearchChange}
         onClick={() => setIsShowResults(true)}
         value={keyword}
