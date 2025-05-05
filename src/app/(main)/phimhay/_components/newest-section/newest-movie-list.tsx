@@ -49,7 +49,7 @@ const NewestMovieList = ({
           {title}
         </h2>
         <Link
-          href={ROUTES.MAIN.THE_LOAI.DETAIL(slug)}
+          href={ROUTES.MAIN.QUOC_GIA(slug)}
           className='flex items-center gap-1 whitespace-nowrap transition-colors duration-300 hover:text-primaryCustom'
         >
           <span className='hidden xs:inline-block'>Xem toàn bộ</span>
