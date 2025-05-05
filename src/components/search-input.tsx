@@ -26,7 +26,9 @@ const SearchInput = ({
   const router = useRouter()
   const pathname = usePathname()
   const [keyword, setKeyword] = useState<string>('')
+  const [isShowResults, setIsShowResults] = useState<boolean>(false)
   const typingTimeoutRef = useRef<any>(null)
+  const searchInputRef = useRef<HTMLFormElement>(null)
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value)
@@ -40,7 +42,7 @@ const SearchInput = ({
 
     typingTimeoutRef.current = setTimeout(() => {
       onSubmit?.({ keyword })
-    }, 2000)
+    }, 300)
   }, [keyword])
 
   /** Clear keyword when pathname change */
@@ -48,12 +50,35 @@ const SearchInput = ({
     setKeyword('')
   }, [pathname])
 
+  /** Close search results when click outside */
+  useEffect(() => {
+    const handleOutSideClick = (e: MouseEvent) => {
+      if (
+        searchInputRef.current &&
+        !searchInputRef.current.contains(e.target as Node)
+      ) {
+        setIsShowResults(false)
+      }
+    }
+
+    document.addEventListener('click', handleOutSideClick)
+
+    return () => document.removeEventListener('click', handleOutSideClick)
+  }, [])
+
+  useEffect(() => {
+    if (searchResults.length > 0) {
+      setIsShowResults(true)
+    }
+  }, [searchResults.length])
+
   return (
     <form
       className={cn(
         'relative flex items-center h-11 max-w-[368px] w-full text-white',
         className
       )}
+      ref={searchInputRef}
       onSubmit={(e) => e.preventDefault()}
     >
       <Search
@@ -64,10 +89,11 @@ const SearchInput = ({
         className='h-full px-12 py-[6px] text-sm placeholder:text-white placeholder:text-xs border-transparent bg-[#ffffff14] focus:border-white'
         placeholder='Tìm kiếm phim, diễn viên'
         onChange={handleSearchChange}
+        onClick={() => setIsShowResults(true)}
         value={keyword}
       />
 
-      {!isLoading && searchResults.length > 0 && (
+      {!isLoading && searchResults.length > 0 && isShowResults && (
         <div className='flex flex-col gap-4 p-5 bg-[#0f111af2] backdrop-blur-lg absolute left-0 top-[calc(100%+8px)] w-full max-h-[500px] overflow-y-auto custom-scroll rounded-lg'>
           {searchResults.map((movie) => {
             const { slug, poster_url, name, origin_name } = movie || {}
@@ -114,6 +140,12 @@ const SearchInput = ({
           })}
         </div>
       )}
+
+      {/* {!isLoading && searchResults.length === 0 && isShowResults && (
+        <div className='flex flex-col gap-4 p-5 bg-[#0f111af2] backdrop-blur-lg absolute left-0 top-[calc(100%+8px)] w-full max-h-[500px] overflow-y-auto custom-scroll rounded-lg'>
+          <div>Không tìm thấy phim nào</div>
+        </div>
+      )} */}
 
       {isLoading && (
         <div className='flex flex-col gap-4 p-5 bg-[#0f111af2] backdrop-blur-lg absolute left-0 top-[calc(100%+8px)] w-full max-h-[500px] overflow-y-auto custom-scroll rounded-lg'>
