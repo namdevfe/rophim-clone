@@ -31,19 +31,17 @@ const SearchInput = ({
   const searchInputRef = useRef<HTMLFormElement>(null)
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value)
-  }
+    const value = e.target.value
+    setKeyword(value)
 
-  /** Apply debounced to delay submit form when typing */
-  useEffect(() => {
     if (typingTimeoutRef.current) {
       clearTimeout(typingTimeoutRef.current)
     }
 
     typingTimeoutRef.current = setTimeout(() => {
-      onSubmit?.({ keyword })
+      onSubmit?.({ keyword: value })
     }, 300)
-  }, [keyword])
+  }
 
   /** Clear keyword when pathname change */
   useEffect(() => {
@@ -67,9 +65,7 @@ const SearchInput = ({
   }, [])
 
   useEffect(() => {
-    if (searchResults.length > 0) {
-      setIsShowResults(true)
-    }
+    setIsShowResults(true)
   }, [searchResults.length])
 
   return (
@@ -141,15 +137,18 @@ const SearchInput = ({
         </div>
       )}
 
-      {/* {!isLoading && searchResults.length === 0 && isShowResults && (
-        <div className='flex flex-col gap-4 p-5 bg-[#0f111af2] backdrop-blur-lg absolute left-0 top-[calc(100%+8px)] w-full max-h-[500px] overflow-y-auto custom-scroll rounded-lg'>
-          <div>Không tìm thấy phim nào</div>
-        </div>
-      )} */}
+      {!isLoading &&
+        !!keyword &&
+        searchResults.length === 0 &&
+        isShowResults && (
+          <div className='flex flex-col gap-4 p-5 bg-[#0f111af2] backdrop-blur-lg absolute left-0 top-[calc(100%+8px)] w-full max-h-[500px] overflow-y-auto custom-scroll rounded-lg'>
+            <div className='text-center'>Không tìm thấy phim nào</div>
+          </div>
+        )}
 
-      {isLoading && (
+      {isLoading && isShowResults && (
         <div className='flex flex-col gap-4 p-5 bg-[#0f111af2] backdrop-blur-lg absolute left-0 top-[calc(100%+8px)] w-full max-h-[500px] overflow-y-auto custom-scroll rounded-lg'>
-          <div>Loading...</div>
+          <div className='text-center'>Đang tìm kiếm...</div>
         </div>
       )}
     </form>
