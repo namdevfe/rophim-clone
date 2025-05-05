@@ -1,7 +1,7 @@
 import movieService from '@/services/movie-service'
-import MovieList from './_components/movie-list'
 import { Suspense } from 'react'
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links'
+import MovieList from '@/components/movie-list'
 
 interface CategoryDetailPageProps {
   params: { slug: string }
