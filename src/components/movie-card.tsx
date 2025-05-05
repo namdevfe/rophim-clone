@@ -202,7 +202,7 @@ const MovieCard = ({
                 className='text-sm font-normal truncate line-clamp-1 text-wrap whitespace-normal transition-colors duration-300 hover:text-primaryCustom'
                 title={name}
               >
-                <Link href={ROUTES.MAIN.THE_LOAI.DETAIL(slug)}>{name}</Link>
+                <Link href={ROUTES.MAIN.PHIM(slug)}>{name}</Link>
               </h3>
               <p className='mt-[6px] text-[13px] text-[#aaa] font-normal truncate line-clamp-1 text-wrap whitespace-normal'>
                 {origin_name}

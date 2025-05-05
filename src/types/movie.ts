@@ -36,6 +36,7 @@ export interface Country {
   id: string
   name: string
   slug: string
+  _id?: string
 }
 
 export interface MovieDetail {
