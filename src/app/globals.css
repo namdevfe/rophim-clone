@@ -10,6 +10,9 @@
     --primary-color: #ffd875;
     --size-navigation-button: 40px;
     --text-base-color: #aaa;
+    --plyr-color-main: #ffd875;
+    --plyr-control-icon-size: 24px;
+    /* --plyr-video-control-color-hover: #000; */
 
     /* Default theme of shadcn ui */
     --background: 0 0% 100%;

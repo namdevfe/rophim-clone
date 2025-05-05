@@ -7,14 +7,22 @@ import { useEffect, useRef } from 'react'
 import 'plyr/dist/plyr.css'
 import Link from 'next/link'
 import { ROUTES } from '@/constants/route'
+import { useToast } from '@/hooks/use-toast'
 
 interface PlayerSectionProps {
   slug: string
   name: string
+  posterURL: string
   movieURL: string
 }
 
-const PlayerSection = ({ slug, name, movieURL }: PlayerSectionProps) => {
+const PlayerSection = ({
+  slug,
+  name,
+  movieURL,
+  posterURL
+}: PlayerSectionProps) => {
+  const { toast } = useToast()
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const hlsRef = useRef<Hls | null>(null)
 
@@ -23,22 +31,40 @@ const PlayerSection = ({ slug, name, movieURL }: PlayerSectionProps) => {
     if (videoRef.current) {
       new Plyr(videoRef.current, {
         controls: [
+          'play-large',
           'play',
           'progress',
           'current-time',
           'mute',
           'volume',
+          'captions',
           'settings',
+          'pip',
+          'airplay',
           'fullscreen'
-        ]
+        ],
+        settings: ['captions', 'quality', 'speed', 'loop'],
+        quality: {
+          default: 720,
+          options: [360, 480, 720, 1080],
+          forced: true,
+          onChange: () => {
+            toast({
+              description: 'Bạn đang xem phim ở chất lượng cao nhất'
+            })
+          }
+        },
+        loop: {
+          active: false
+        }
       })
     }
-  }, [])
+  }, [toast])
 
   // Load video when movieURL change
   useEffect(() => {
     const video = videoRef.current
-    if (typeof window === 'undefined' || !video) return
+    if (!video) return
 
     // Clean hls old if have
     if (hlsRef.current) {
@@ -80,7 +106,15 @@ const PlayerSection = ({ slug, name, movieURL }: PlayerSectionProps) => {
         </div>
 
         <div className='w-full rounded-lg'>
-          <video ref={videoRef} controls className='w-full h-full' />
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            controls
+            playsInline
+            className='w-full h-full'
+            data-poster={posterURL}
+          />
         </div>
       </div>
     </section>

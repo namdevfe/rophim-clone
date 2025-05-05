@@ -36,6 +36,7 @@ const WatchMoviePage = async ({
   return (
     <>
       <PlayerSection
+        posterURL={movieResponse?.movie?.thumb_url || ''}
         slug={params?.slug}
         name={movieResponse?.movie?.name}
         movieURL={currentEpisodeData?.link_m3u8 || ''}
