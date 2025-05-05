@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { Country } from '@/types/movie'
 import React from 'react'
 
 interface FilterByYearProps {

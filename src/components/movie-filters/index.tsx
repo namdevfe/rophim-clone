@@ -22,7 +22,7 @@ const MovieFilters = () => {
   }
 
   const listYears = useMemo(() => {
-    let years: number[] = []
+    const years: number[] = []
 
     for (let i = 1970; i <= new Date().getFullYear(); i++) {
       years.push(i)
