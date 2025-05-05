@@ -1,6 +1,5 @@
 import CollectionMovieList from './collection-movie-list'
 import TextBox from '@/components/textbox'
-import { ROUTES } from '@/constants/route'
 import { Movie } from '@/types/movie'
 
 interface CollectionSectionProps {
@@ -17,11 +16,7 @@ const CollectionSection = ({
   return (
     <section className='py-[50px]'>
       <div className='container-fluid'>
-        <TextBox
-          hasViewMore={!!link}
-          title={title}
-          link={ROUTES.MAIN.THE_LOAI.DETAIL(link)}
-        />
+        <TextBox hasViewMore={!!link} title={title} link={link} />
 
         <CollectionMovieList movies={movies} />
       </div>

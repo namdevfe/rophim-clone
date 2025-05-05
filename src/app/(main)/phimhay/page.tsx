@@ -8,6 +8,7 @@ import CollectionSection from './_components/collection-section'
 import TopMoviesSection from './_components/top-movies-section'
 import SingleMoviesSection from '@/app/(main)/phimhay/_components/single-movies-section'
 import { Movie } from '@/types/movie'
+import { ROUTES } from '@/constants/route'
 
 /** Fetch data */
 const getMovieList = async () => {
@@ -154,18 +155,16 @@ const PhimHayPage = async () => {
       <GPMNSection movies={historyMoviesData?.data?.items || []} />
       <NewestSection {...newestSectionProps} />
       <CollectionSection
-        link='phim-dien-anh-moi-coong'
         title='Phim Điện Ảnh Mới Coóng'
         movies={moviesData?.items || []}
       />
       <TopMoviesSection title='Top 10 Phim Hôm Nay' movies={topMovies} />
       <SingleMoviesSection
         title='Mãn Nhãn với Tuyển Tập Phim Lẻ Hot'
-        link='hanh-dong'
+        link={ROUTES.MAIN.PHIM_LE}
         movies={singleMovieData?.data?.items || []}
       />
       <CollectionSection
-        link='hoat-hinh'
         title='Hòa Mình Cùng Các Bộ Phim Hoạt Hình Hay'
         movies={cartoonMovieData?.data?.items || []}
       />
@@ -174,17 +173,16 @@ const PhimHayPage = async () => {
         movies={seriesMoviesData?.data?.items?.slice(0, 10) || []}
       />
       <CollectionSection
-        link='hoat-hinh'
         title='Phim Thiếu Nhi mà Người Lớn Vẫn Thích Cày'
         movies={kidMoviesData?.data?.items || []}
       />
       <CollectionSection
-        link='hanh-dong'
+        link={ROUTES.MAIN.THE_LOAI.DETAIL('hanh-dong')}
         title='Điện Ảnh Hồng Kông ở Chỗ Này Này'
         movies={actionChineseMoviesData?.data?.items || []}
       />
       <CollectionSection
-        link='kinh-di'
+        link={ROUTES.MAIN.THE_LOAI.DETAIL('kinh-di')}
         title='Tôi Sợ Con Người Em Rồi Đó, nhưng Không Bằng Sợ Ma'
         movies={horrorMoviesData?.data?.items || []}
       />
@@ -193,7 +191,7 @@ const PhimHayPage = async () => {
         movies={loveAmericanMoviesData?.data?.items || []}
       />
       <CollectionSection
-        link='tam-ly'
+        link={ROUTES.MAIN.THE_LOAI.DETAIL('tam-ly')}
         title='Đường về nhà là vào tim ta...'
         movies={psychologicalMovieData?.data?.items || []}
       />
@@ -202,12 +200,11 @@ const PhimHayPage = async () => {
         movies={loveMovies || []}
       />
       <SingleMoviesSection
-        link='thai-lan'
         title='Xoắn Não Như Lakorn Thái'
         movies={thaiLandMoviesData?.data?.items || []}
       />
       <CollectionSection
-        link='phim-le'
+        link={ROUTES.MAIN.PHIM_LE}
         title='Phim Điện Ảnh Hàng Tuyển'
         movies={singleMovieData?.data?.items || []}
       />
