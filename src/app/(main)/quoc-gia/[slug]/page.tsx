@@ -36,13 +36,15 @@ const CountryMoviesPage = async ({
         <Suspense fallback={<div>Loading..</div>}>
           <MovieList data={movies} />
 
-          <PaginationWithLinks
-            pageSize={
-              moviesRes?.data?.params?.pagination?.totalItemsPerPage || 32
-            }
-            page={moviesRes?.data?.params?.pagination?.currentPage || 1}
-            totalCount={moviesRes?.data?.params?.pagination?.totalItems || 0}
-          />
+          {movies?.length > 0 && (
+            <PaginationWithLinks
+              pageSize={
+                moviesRes?.data?.params?.pagination?.totalItemsPerPage || 32
+              }
+              page={moviesRes?.data?.params?.pagination?.currentPage || 1}
+              totalCount={moviesRes?.data?.params?.pagination?.totalItems || 0}
+            />
+          )}
         </Suspense>
       </div>
     </section>
