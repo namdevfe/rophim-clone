@@ -13,16 +13,37 @@ import MenuMobile from './menu-mobile'
 import movieService from '@/services/movie-service'
 import { MenuItem } from '@/constants/menu'
 import { CategoryDetail } from '@/types/category'
-import { Country } from '@/types/movie'
+import { Country, Movie } from '@/types/movie'
+import { usePathname } from 'next/navigation'
 
 const Header = () => {
   const headerRef = useRef<HTMLElement | null>(null)
   const [isShowSearch, setIsShowSearch] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [menuList, setMenuList] = useState<MenuItem[]>([])
+  const [movieList, setMovieList] = useState<Movie[]>([])
+  const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false)
+  const pathname = usePathname()
 
   const handleToggleSearchInput = () => {
     setIsShowSearch((prev) => !prev)
+  }
+
+  const handleSearchMovie = async (payload: { keyword: string }) => {
+    setIsSearchLoading(true)
+    try {
+      const moviesRes = await movieService.getMovieByKeyword(payload)
+
+      if (moviesRes?.data?.items?.length > 0) {
+        setMovieList(moviesRes.data.items)
+      } else {
+        setMovieList([])
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsSearchLoading(false)
+    }
   }
 
   /** Handle change header color when scroll height > header height */
@@ -100,6 +121,11 @@ const Header = () => {
     getMenuList()
   }, [])
 
+  /** Reset movies search when pathname change */
+  useEffect(() => {
+    setMovieList([])
+  }, [pathname])
+
   return (
     <header
       className='fixed top-0 left-0 z-[100] w-full h-[74px] py-3 bg-transparent transition-colors duration-300'
@@ -133,6 +159,9 @@ const Header = () => {
                 'opacity-1 visible pointer-events-auto': isShowSearch
               }
             )}
+            isLoading={isSearchLoading}
+            searchResults={movieList}
+            onSubmit={handleSearchMovie}
           />
           {!isLoading && <MenuDesktop menuList={menuList} />}
         </div>

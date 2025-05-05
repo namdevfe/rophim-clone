@@ -13,6 +13,7 @@ export type QueryParams = Partial<{
   country: string
   year: number
   limit: number
+  keyword: string
 }>
 
 export interface Rect {

@@ -91,6 +91,17 @@ const getMovies = async (page: number = 1) => {
   }
 }
 
+/** Search movie */
+const getMovieByKeyword = async (queryParams: QueryParams) => {
+  try {
+    const query = queryString.stringify(queryParams || {})
+    const response = await fetch(`https://phimapi.com/v1/api/tim-kiem?${query}`)
+    return await response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const movieService = {
   getMovieBySlug,
   getMoviesByCountry,
@@ -98,7 +109,8 @@ const movieService = {
   getMoviesByType,
   getGenres,
   getCountries,
-  getMovies
+  getMovies,
+  getMovieByKeyword
 }
 
 export default movieService
