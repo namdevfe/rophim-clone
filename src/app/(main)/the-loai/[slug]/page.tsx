@@ -1,17 +1,24 @@
 import movieService from '@/services/movie-service'
 import MovieList from './_components/movie-list'
 import { Suspense } from 'react'
+import { PaginationWithLinks } from '@/components/ui/pagination-with-links'
 
 interface CategoryDetailPageProps {
   params: { slug: string }
+  searchParams?: {
+    page: string
+  }
 }
 
-const CategoryDetailPage = async ({ params }: CategoryDetailPageProps) => {
+const CategoryDetailPage = async ({
+  params,
+  searchParams
+}: CategoryDetailPageProps) => {
   const categorySlug = params?.slug
   const moviesRes = await movieService.getMovieByGenre(categorySlug, {
-    limit: 32
+    limit: 32,
+    page: Number(searchParams?.page) || 1
   })
-
   const movies = moviesRes?.data?.items || []
   const titlePage = `Phim ${moviesRes?.data?.titlePage}`
 
@@ -24,6 +31,14 @@ const CategoryDetailPage = async ({ params }: CategoryDetailPageProps) => {
 
         <Suspense fallback={<div>Loading..</div>}>
           <MovieList data={movies} />
+
+          <PaginationWithLinks
+            pageSize={
+              moviesRes?.data?.params?.pagination?.totalItemsPerPage || 32
+            }
+            page={moviesRes?.data?.params?.pagination?.currentPage || 1}
+            totalCount={moviesRes?.data?.params?.pagination?.totalItems || 0}
+          />
         </Suspense>
       </div>
     </section>
